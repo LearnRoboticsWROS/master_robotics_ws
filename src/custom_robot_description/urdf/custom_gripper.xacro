@@ -1,0 +1,71 @@
+<?xml version = "1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find custom_robot_description)/urdf/link_joint.xacro"/> 
+    <xacro:include filename="$(find custom_robot_description)/urdf/6_axis_robot_gazebo.xacro"/>    
+
+    <!-- Model a gripper-->
+    <xacro:macro name="custom_gripper" params = "parent origin_xyz" >
+
+        <xacro:cobot_link_cylinder name="gripper_connector" origin_xyz="0.0 0.0 0.015" origin_rpy= "0 0 0" 
+                            radius="0.04" length="0.03" mass="0.5" i_xx="0.0002375" i_xy="0" i_xz="0" 
+                            i_yy="0.0002375" i_yz="0" i_zz="0.00006666666667" />
+        
+        <joint name="{parent}__gripper_connector" type="fixed">
+            <parent link="${parent}"/>
+            <child link="gripper_connector"/>
+            <origin xyz="${origin_xyz}" rpy="0.0 0.0 0.0"/>
+        </joint>
+
+        <xacro:cobot_link_box name="finger_support" origin_xyz="0 0.005 0.005" origin_rpy="0 0 0" 
+                                size="0.120 0.01 0.01" mass="0.25" i_xx="0.0003" i_xy="0" i_xz="0" 
+                            i_yy="0.0003" i_yz="0" i_zz="0.0003"/>
+
+        <joint name="finger_support__gripper_connector" type="fixed">
+            <parent link="gripper_connector"/>
+            <child link="finger_support"/>
+            <origin xyz="0 0 0.03" rpy="0.0 0.0 0.0"/>
+        </joint>  
+
+        <xacro:cobot_link_box name="finger_right" origin_xyz="0 0 0.04" origin_rpy="0 0 0" 
+                                size="0.01 0.01 0.08" mass="0.2" i_xx="0.00042667" i_xy="0" i_xz="0" 
+                            i_yy="0.00042667" i_yz="0" i_zz="0.0000083"/>
+        <xacro:cobot_link_box name="finger_left" origin_xyz="0 0 0.04" origin_rpy="0 0 0" 
+                                size="0.01 0.01 0.08" mass="0.2" i_xx="0.00042667" i_xy="0" i_xz="0" 
+                            i_yy="0.00042667" i_yz="0" i_zz="0.0000083"/>
+        
+        <joint name="finger_right_joint" type="prismatic">
+            <parent link="finger_support"/>
+            <child link="finger_right"/>
+            <axis xyz="1 0 0"/>
+            <limit lower="0" upper="0.044" velocity="0.5" effort="200"/>
+            <origin xyz="-0.05 0.0 0.011" rpy="0 0 0"/>
+            <dynamics damping="1" friction="2"/>
+        </joint>
+        <xacro:transmission_effort name="trans_finger_right_joint" 
+                        joint_name="finger_right_joint" 
+                        actuator_name="motor_finger_right_joint" />
+        
+        <joint name="finger_left_joint" type="prismatic">
+            <parent link="finger_support"/>
+            <child link="finger_left"/>
+            <axis xyz="1 0 0"/>
+            <limit lower="-0.044" upper="0" velocity="0.5" effort="200"/>
+            <origin xyz="0.05 0.0 0.011" rpy="0 0 0"/>
+            <dynamics damping="1" friction="2"/>
+            <mimic joint="finger_right_joint" multiplier="-1.0" offset="0" /> 
+        </joint>
+
+        <xacro:transmission_effort name="trans_finger_left_joint" 
+                        joint_name="finger_left_joint" 
+                        actuator_name="motor_finger_left_joint" />
+
+        <xacro:mimic_joint_plugin_gazebo  parent_joint="finger_right_joint" mimic_joint="finger_left_joint" 
+                                            has_pid="false" multiplier="-1.0" max_effort="200" />
+
+        
+    
+    </xacro:macro>
+
+
+</robot>

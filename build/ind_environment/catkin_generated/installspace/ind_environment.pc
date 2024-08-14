@@ -1,0 +1,8 @@
+prefix=/home/ros/master_ws/install
+
+Name: ind_environment
+Description: Description of ind_environment
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

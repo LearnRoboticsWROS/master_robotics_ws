@@ -1,0 +1,41 @@
+cobot:
+  arm_controller:
+    type: effort_controllers/JointTrajectoryController
+    joints:
+      - base_link__link1
+      - link1__link2
+      - link2__link3
+      - link3__link4
+      - link4__link5
+      - link5__link6
+    gains: # Required because we're controlling an effort interface
+      base_link__link1: {p: 1100,  d: 50, i: 100, i_clamp: 1}
+      link1__link2: {p: 1100,  d: 70, i: 100, i_clamp: 1}
+      link2__link3: {p: 1000,  d: 70, i: 100, i_clamp: 1}
+      link3__link4: {p: 2000,  d: 70, i: 100, i_clamp: 1}
+      link4__link5: {p: 2000,  d: 70, i: 150, i_clamp: 1}
+      link5__link6: {p: 1,  d: 0, i: 1, i_clamp: 1} 
+    constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerances: 0.05
+      base_link__link1: {trajectory: 0.1, goal: 0.1}
+      link1__link2: {trajectory: 0.1, goal: 0.1}
+      link2__link3: {trajectory: 0.1, goal: 0.1}
+      link3__link4: {trajectory: 0.1, goal: 0.1}
+      link4__link5: {trajectory: 0.1, goal: 0.1}
+      link5__link6: {trajectory: 0.1, goal: 0.1}
+    stop_trajectory_duration: 0.5
+    state_publish_rate: 25
+    action_monitor_rate: 10  
+
+
+  gripper_controller:
+    type: effort_controllers/JointTrajectoryController
+    joints:
+      - finger_right_joint
+    gains:
+      finger_right_joint:
+        p: 2500
+        d: 10
+        i: 10
+        i_clamp: 1

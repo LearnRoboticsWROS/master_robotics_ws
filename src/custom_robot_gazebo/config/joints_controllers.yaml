@@ -1,0 +1,43 @@
+cobot:
+  # Publish all the joint states
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  # Position controllers and set up PID
+  joint1_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: base_link__link1
+    pid: {p: 1100, i: 100, d: 50}
+
+  joint2_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: link1__link2
+    pid: {p: 1100, i: 100, d: 70}
+
+  joint3_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: link2__link3
+    pid: {p: 1000, i: 100, d: 70}
+
+  joint4_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: link3__link4
+    pid: {p: 2000, i: 100, d: 70}
+
+  joint5_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: link4__link5
+    pid: {p: 2000, i: 150, d: 70}
+
+  joint6_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: link5__link6
+    pid: {p: 1, i: 1, d: 0}
+
+  gripper_controller_right:
+    type: effort_controllers/JointPositionController
+    joint: finger_right_joint
+    pid: {p: 2500, i: 10, d: 10}
+
+  

@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: custom_robot_description
+    relative_path: urdf/6_axis_robot.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/custom_robot.srdf
+  CONFIG:
+    author_name: learnroboticswros
+    author_email: ros.master.ai@gmail.com
+    generated_timestamp: 1723391888

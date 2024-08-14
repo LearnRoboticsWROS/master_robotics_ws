@@ -1,0 +1,8 @@
+prefix=/home/ros/master_ws/devel
+
+Name: gazebo_dev
+Description: Description of gazebo_dev
+Version: 2.9.2
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

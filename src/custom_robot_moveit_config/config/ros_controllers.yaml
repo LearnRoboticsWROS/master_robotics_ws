@@ -1,0 +1,20 @@
+controller_list:
+  - name: /cobot/arm_controller
+    action_ns: follow_joint_trajectory
+    default: True
+    type: FollowJointTrajectory
+    joints:
+      - base_link__link1
+      - link1__link2
+      - link2__link3
+      - link3__link4
+      - link4__link5
+      - link5__link6
+
+  - name: /cobot/gripper_controller
+    action_ns: follow_joint_trajectory
+    default: True
+    type: FollowJointTrajectory
+    joints:
+      - finger_right_joint
+  

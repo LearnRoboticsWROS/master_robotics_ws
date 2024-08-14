@@ -1,0 +1,93 @@
+<?xml version = "1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/cobot</robotNamespace>
+            <!-- <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType> -->
+        </plugin>
+    </gazebo>
+
+    <!-- Make the robot more fancy :)-->
+    <gazebo reference="base_link" >
+        <material>Gazebo/Blue</material>
+    </gazebo>
+    <gazebo reference="link1" >
+        <material>Gazebo/Yellow</material>
+    </gazebo>
+    <gazebo reference="link2" >
+        <material>Gazebo/Black</material>
+    </gazebo>
+    
+    <gazebo reference="link3" >
+        <material>Gazebo/Yellow</material>
+    </gazebo>
+    
+    <gazebo reference="link4" >
+        <material>Gazebo/Black</material>
+    </gazebo>
+    
+    <gazebo reference="link5" >
+        <material>Gazebo/Yellow</material>
+    </gazebo>
+    <gazebo reference="link6" >
+        <material>Gazebo/Black</material>
+    </gazebo>
+    
+    <gazebo reference="gripper_connector" >
+        <material>Gazebo/Black</material>
+    </gazebo>
+    <gazebo reference="finger_support" >
+        <material>Gazebo/Black</material>
+    </gazebo>
+    <gazebo reference="finger_right" >
+        <material>Gazebo/Blue</material>
+    </gazebo>
+    <gazebo reference="finger_left" >
+        <material>Gazebo/Blue</material>
+    </gazebo>
+    
+
+
+    <!-- ros control plugin with mimic-->
+        
+        <xacro:macro name="mimic_joint_plugin_gazebo" params="parent_joint mimic_joint has_pid:=false multiplier:=-1.0 offset:=0 sensitiveness:=0.0 max_effort:=200 robot_namespace:='/cobot'">
+            <gazebo>
+                <plugin name="${mimic_joint}_mimic_joint_plugin" filename="libroboticsgroup_upatras_gazebo_mimic_joint_plugin.so">
+                    <joint>${parent_joint}</joint>
+                    <mimicJoint>${mimic_joint}</mimicJoint>
+                    <xacro:if value="${has_pid}">
+                        <hasPID />
+                    </xacro:if>
+                    <multiplier>${multiplier}</multiplier>
+                    <offset>${offset}</offset>
+                    <sensitiveness>${sensitiveness}</sensitiveness>
+                    <maxEffort>${max_effort}</maxEffort>
+                    <xacro:unless value="${robot_namespace == '/cobot'}">
+                        <robotNamespace>($robot_namespace)</robotNamespace>
+                    </xacro:unless>
+                </plugin>
+            </gazebo>
+        </xacro:macro>
+
+
+    <gazebo>
+        <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
+            <arm>
+                <arm_name>custom_gripper</arm_name>
+                <palm_link> link6 </palm_link>
+                <gripper_link> finger_right </gripper_link>
+                <gripper_link> finger_left </gripper_link>
+            </arm>
+        <forces_angle_tolerance>100</forces_angle_tolerance>
+        <update_rate>4</update_rate>
+        <grip_count_threshold>4</grip_count_threshold>
+        <max_grip_count>8</max_grip_count>
+        <release_tolerance>0.005</release_tolerance>
+        <disable_collisions_on_attach>false</disable_collisions_on_attach>
+        <contact_topic>__default_topic__</contact_topic>
+        </plugin>
+    </gazebo>
+
+
+</robot>

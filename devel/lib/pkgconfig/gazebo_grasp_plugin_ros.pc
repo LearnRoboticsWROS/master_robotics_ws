@@ -1,0 +1,8 @@
+prefix=/home/ros/master_ws/devel
+
+Name: gazebo_grasp_plugin_ros
+Description: Description of gazebo_grasp_plugin_ros
+Version: 0.0.1
+Cflags: -I/home/ros/master_ws/devel/include
+Libs: -L${prefix}/lib 
+Requires: gazebo_grasp_plugin message_runtime roscpp

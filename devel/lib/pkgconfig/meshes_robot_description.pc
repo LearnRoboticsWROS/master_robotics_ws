@@ -1,0 +1,8 @@
+prefix=/home/ros/master_ws/devel
+
+Name: meshes_robot_description
+Description: Description of meshes_robot_description
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

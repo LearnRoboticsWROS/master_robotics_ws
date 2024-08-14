@@ -1,0 +1,29 @@
+<?xml version = "1.0"?>
+
+<robot name="custom_cube" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <link name="red_cuboid">
+        <visual>
+            <geometry>
+                <box size="0.02 0.02 0.2"/>
+            </geometry>
+            <material name="red">
+                <color rgba="1.0 0.0 0.0 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.02 0.02 0.2"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.1"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertia ixx="0.00033333" ixy="0.0" ixz="0.0" iyy="0.00033333" iyz="0.0" izz="0.00000667"/>
+        </inertial>
+  </link>
+  <gazebo reference="red_cuboid" >
+        <material>Gazebo/Red</material>
+  </gazebo>
+
+</robot>

@@ -1,0 +1,137 @@
+<?xml version = "1.0"?>
+
+<robot name="custom_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find custom_robot_description)/urdf/link_joint.xacro"/>
+    <xacro:include filename="$(find custom_robot_description)/urdf/custom_gripper.xacro"/>
+    <xacro:include filename="$(find custom_robot_description)/urdf/6_axis_robot_gazebo.xacro"/>
+    
+    <link name="world">
+    </link>
+    <xacro:cobot_link_cylinder name="base_link" origin_xyz="0.0 0.0 0.02" origin_rpy= "0 0 0" 
+                            radius="0.05" length="0.04" mass="4" i_xx="0.003033" i_xy="0" i_xz="0" 
+                            i_yy="0.003033" i_yz="0" i_zz="0.005" />
+
+    <joint name="fixed" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+        <origin xyz="0 0.0 0.8" rpy="0 0 0"/>
+    </joint>
+
+    <xacro:cobot_link_cylinder name="link1" origin_xyz="0.0 0.0 0.045" origin_rpy= "0 0 0" 
+                            radius="0.035" length="0.09" mass="3.7" i_xx="0.003630625" i_xy="0" i_xz="0" 
+                            i_yy="0.003630625" i_yz="0" i_zz="0.00226625" />
+
+    <xacro:cobot_joint name="base_link__link1" type="revolute" parent="base_link" child="link1" axis="0 0 1" 
+                        limit_l="-3.14159" limit_u="3.14159" limit_v="0.5" limit_e="1000" 
+                        origin_xyz="0 0 0.04" origin_rpy="0 0 0" />
+
+    <xacro:cobot_link_cylinder name="link2" origin_xyz="0.0 0.0 0.2125" origin_rpy= "0 0 0" 
+                            radius="0.035" length="0.425"  mass="8.3" i_xx="0.499729" i_xy="0" i_xz="0" 
+                            i_yy="0" i_yz="0" i_zz="0.499729"/>
+
+    <joint name="link1__link2" type="revolute">
+        <parent link="link1"/>
+        <child link="link2"/>
+        <axis xyz="0 1 0"/>
+        <limit lower="-3.14159" upper="3.14159" velocity="0.5" effort="1000.0"/>
+        <origin xyz="0 0.07 0.055" rpy="0 0 0"/>
+    </joint>
+
+    
+    
+
+    <xacro:cobot_link_cylinder name="link3" origin_xyz="0.0 0.0 0.196" origin_rpy= "0 0 0" 
+                            radius="0.035" length="0.392" mass="2.3" i_xx="0.117809067" i_xy="0" i_xz="0" 
+                            i_yy="0" i_yz="0" i_zz="0.117809067" />
+
+    <xacro:cobot_joint name="link2__link3" type="revolute" parent="link2" child="link3" axis="0 1 0" 
+                        limit_l="-3.14159" limit_u="3.14159" limit_v="0.5" limit_e="1000" 
+                        origin_xyz="0 -0.0675 0.39" origin_rpy="0 0 0" />
+    
+    
+
+    <xacro:cobot_link_cylinder name="link4" origin_xyz="0.0 0.0 0.047" origin_rpy= "0 0 0" 
+                            radius="0.035" length="0.094" mass="1.2" i_xx="0.0035344" i_xy="0" i_xz="0" 
+                            i_yy="0" i_yz="0" i_zz="0.0035344" />
+
+    <xacro:cobot_joint name="link3__link4" type="revolute" parent="link3" child="link4" axis="0 1 0" 
+                        limit_l="-3.14159" limit_u="3.14159" limit_v="0.5" limit_e="1000" 
+                        origin_xyz="0 0.0675 0.357" origin_rpy="0 0 0" />
+    
+    <xacro:cobot_link_cylinder name="link5" origin_xyz="0.0 0.0 0.009" origin_rpy= "0 0 0" 
+                            radius="0.0325" length="0.083" mass="1.2" i_xx="0.0027556" i_xy="0" i_xz="0" 
+                            i_yy="0" i_yz="0" i_zz="0.0027556" />
+
+    <xacro:cobot_joint name="link4__link5" type="revolute" parent="link4" child="link5" axis="0 1 0" 
+                        limit_l="-3.14159" limit_u="3.14159" limit_v="0.5" limit_e="1000" 
+                        origin_xyz="0 0.0 0.1265" origin_rpy="1.57 0 0" />
+
+    <xacro:cobot_link_cylinder name="link6" origin_xyz="0.0 0.0 0.01" origin_rpy= "0 0 0" 
+                            radius="0.0325" length="0.02" mass="0.2" i_xx="0.000059479" i_xy="0" i_xz="0" 
+                            i_yy="0.000059479" i_yz="0" i_zz="0.000105625" />
+
+    <xacro:cobot_joint name="link5__link6" type="revolute" parent="link5" child="link6" axis="0 0 1" 
+                        limit_l="-3.14159" limit_u="3.14159" limit_v="0.5" limit_e="1000" 
+                        origin_xyz="0 0.0 0.0505" origin_rpy="0 0 0" />
+    
+    
+    <!--put end effector tool-->
+    
+    <link name="tool0">
+    </link>
+    
+    <joint name="link6__tool0" type="fixed">
+        <parent link="link6"/>
+        <child link="tool0"/>
+        <origin xyz="0.0 0.0 0.02" rpy="0.0 0.0 0.0"/>
+    </joint>
+
+    <link name="picking_point">
+    </link>
+
+    <joint name="tool0_picking_point" type="fixed">
+        <parent link="tool0"/>
+        <child link="picking_point"/>
+        <origin xyz="0.0 0.0 0.08" rpy="0.0 0.0 0.0"/>
+    </joint>
+
+
+
+    <xacro:custom_gripper parent="tool0" origin_xyz="0 0 0" />
+    
+
+    <!-- Add transmission to each joint-->
+
+    <xacro:transmission name="trans_base_link__link1" 
+                        joint_name="base_link__link1" 
+                        actuator_name="motor_base_link__link1" />
+
+    <xacro:transmission name="trans_link1__link2" 
+                        joint_name="link1__link2" 
+                        actuator_name="motor_link1__link2" />
+
+    
+    <xacro:transmission name="trans_link2__link3" 
+                        joint_name="link2__link3" 
+                        actuator_name="motor_link2__link3" />
+    
+    
+    <xacro:transmission name="trans_link3__link4" 
+                        joint_name="link3__link4" 
+                        actuator_name="motor_link3__link4" />
+    
+    <xacro:transmission name="trans_link4__link5" 
+                        joint_name="link4__link5" 
+                        actuator_name="motor_link4__link5" />
+    
+    <xacro:transmission name="trans_link5__link6" 
+                        joint_name="link5__link6" 
+                        actuator_name="motor_link5__link6" />
+    
+
+
+
+
+
+</robot>

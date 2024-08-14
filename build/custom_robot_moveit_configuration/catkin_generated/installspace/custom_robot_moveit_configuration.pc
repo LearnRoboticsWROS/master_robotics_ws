@@ -1,0 +1,8 @@
+prefix=/home/ros/master_ws/install
+
+Name: custom_robot_moveit_configuration
+Description: Description of custom_robot_moveit_configuration
+Version: 0.3.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
