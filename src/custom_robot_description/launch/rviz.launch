@@ -2,7 +2,7 @@
 
 <launch>
     <!-- Load the robot description parameter-->
-    <param name="robot_description" command= "$(find xacro)/xacro --inorder $(find custom_robot_description)/urdf/6_axis_robot.urdf.xacro" />
+    <param name="robot_description" command= "$(find xacro)/xacro --inorder $(find custom_robot_description)/urdf/6_axis_robot_camera.urdf.xacro" />
 
     <!-- Read the joint value-->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"  />

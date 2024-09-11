@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/ros/master_ws/build
 include general-message-pkgs/object_msgs/CMakeFiles/_object_msgs_generate_messages_check_deps_ObjectInfo.dir/progress.make
 
 general-message-pkgs/object_msgs/CMakeFiles/_object_msgs_generate_messages_check_deps_ObjectInfo:
-	cd /home/ros/master_ws/build/general-message-pkgs/object_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py object_msgs /home/ros/master_ws/src/general-message-pkgs/object_msgs/srv/ObjectInfo.srv object_recognition_msgs/ObjectType:object_msgs/Object:geometry_msgs/Quaternion:std_msgs/Header:geometry_msgs/Pose:shape_msgs/Mesh:shape_msgs/MeshTriangle:shape_msgs/SolidPrimitive:shape_msgs/Plane:geometry_msgs/Point
+	cd /home/ros/master_ws/build/general-message-pkgs/object_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py object_msgs /home/ros/master_ws/src/general-message-pkgs/object_msgs/srv/ObjectInfo.srv shape_msgs/MeshTriangle:object_msgs/Object:geometry_msgs/Point:shape_msgs/SolidPrimitive:geometry_msgs/Pose:shape_msgs/Mesh:object_recognition_msgs/ObjectType:shape_msgs/Plane:std_msgs/Header:geometry_msgs/Quaternion
 
 _object_msgs_generate_messages_check_deps_ObjectInfo: general-message-pkgs/object_msgs/CMakeFiles/_object_msgs_generate_messages_check_deps_ObjectInfo
 _object_msgs_generate_messages_check_deps_ObjectInfo: general-message-pkgs/object_msgs/CMakeFiles/_object_msgs_generate_messages_check_deps_ObjectInfo.dir/build.make
