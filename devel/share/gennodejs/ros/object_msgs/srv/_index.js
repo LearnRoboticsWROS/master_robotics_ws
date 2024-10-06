@@ -1,10 +1,10 @@
 
 "use strict";
 
-let RegisterObject = require('./RegisterObject.js')
 let ObjectInfo = require('./ObjectInfo.js')
+let RegisterObject = require('./RegisterObject.js')
 
 module.exports = {
-  RegisterObject: RegisterObject,
   ObjectInfo: ObjectInfo,
+  RegisterObject: RegisterObject,
 };

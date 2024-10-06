@@ -167,9 +167,9 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/ros/master_ws/build/meshes_robot_description/cmake_install.cmake")
   include("/home/ros/master_ws/build/custom_robot_gazebo/cmake_install.cmake")
   include("/home/ros/master_ws/build/ur5_description/cmake_install.cmake")
+  include("/home/ros/master_ws/build/universal_robot/ur_kinematics/cmake_install.cmake")
   include("/home/ros/master_ws/build/robot_inverse_kinematics/cmake_install.cmake")
   include("/home/ros/master_ws/build/robotiq_description/cmake_install.cmake")
-  include("/home/ros/master_ws/build/universal_robot/ur_kinematics/cmake_install.cmake")
 
 endif()
 

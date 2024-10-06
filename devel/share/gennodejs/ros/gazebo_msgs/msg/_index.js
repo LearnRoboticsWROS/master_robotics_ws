@@ -1,28 +1,28 @@
 
 "use strict";
 
-let ODEPhysics = require('./ODEPhysics.js');
-let ODEJointProperties = require('./ODEJointProperties.js');
-let LinkStates = require('./LinkStates.js');
 let LinkState = require('./LinkState.js');
-let ContactState = require('./ContactState.js');
-let WorldState = require('./WorldState.js');
-let PerformanceMetrics = require('./PerformanceMetrics.js');
+let LinkStates = require('./LinkStates.js');
+let SensorPerformanceMetric = require('./SensorPerformanceMetric.js');
 let ModelStates = require('./ModelStates.js');
 let ContactsState = require('./ContactsState.js');
+let WorldState = require('./WorldState.js');
+let ODEJointProperties = require('./ODEJointProperties.js');
+let PerformanceMetrics = require('./PerformanceMetrics.js');
+let ContactState = require('./ContactState.js');
+let ODEPhysics = require('./ODEPhysics.js');
 let ModelState = require('./ModelState.js');
-let SensorPerformanceMetric = require('./SensorPerformanceMetric.js');
 
 module.exports = {
-  ODEPhysics: ODEPhysics,
-  ODEJointProperties: ODEJointProperties,
-  LinkStates: LinkStates,
   LinkState: LinkState,
-  ContactState: ContactState,
-  WorldState: WorldState,
-  PerformanceMetrics: PerformanceMetrics,
+  LinkStates: LinkStates,
+  SensorPerformanceMetric: SensorPerformanceMetric,
   ModelStates: ModelStates,
   ContactsState: ContactsState,
+  WorldState: WorldState,
+  ODEJointProperties: ODEJointProperties,
+  PerformanceMetrics: PerformanceMetrics,
+  ContactState: ContactState,
+  ODEPhysics: ODEPhysics,
   ModelState: ModelState,
-  SensorPerformanceMetric: SensorPerformanceMetric,
 };

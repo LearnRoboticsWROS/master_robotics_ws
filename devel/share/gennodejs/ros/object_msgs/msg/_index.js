@@ -1,10 +1,10 @@
 
 "use strict";
 
-let Object = require('./Object.js');
 let ObjectPose = require('./ObjectPose.js');
+let Object = require('./Object.js');
 
 module.exports = {
-  Object: Object,
   ObjectPose: ObjectPose,
+  Object: Object,
 };
