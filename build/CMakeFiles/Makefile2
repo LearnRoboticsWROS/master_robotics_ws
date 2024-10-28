@@ -58,6 +58,7 @@ all: custom_robot_moveit_config/all
 all: gazebo_ros_pkgs/gazebo_dev/all
 all: gazebo_ros_pkgs/gazebo_ros_pkgs/all
 all: universal_robot/universal_robots/all
+all: ur5_robotiq_camera_moveit_config/all
 all: ur5_robotiq_moveit_config/all
 all: 2D_cv/all
 all: general-message-pkgs/path_navigation_msgs/all
@@ -103,6 +104,7 @@ preinstall: custom_robot_moveit_config/preinstall
 preinstall: gazebo_ros_pkgs/gazebo_dev/preinstall
 preinstall: gazebo_ros_pkgs/gazebo_ros_pkgs/preinstall
 preinstall: universal_robot/universal_robots/preinstall
+preinstall: ur5_robotiq_camera_moveit_config/preinstall
 preinstall: ur5_robotiq_moveit_config/preinstall
 preinstall: 2D_cv/preinstall
 preinstall: general-message-pkgs/path_navigation_msgs/preinstall
@@ -153,6 +155,7 @@ clean: custom_robot_moveit_config/clean
 clean: gazebo_ros_pkgs/gazebo_dev/clean
 clean: gazebo_ros_pkgs/gazebo_ros_pkgs/clean
 clean: universal_robot/universal_robots/clean
+clean: ur5_robotiq_camera_moveit_config/clean
 clean: ur5_robotiq_moveit_config/clean
 clean: 2D_cv/clean
 clean: general-message-pkgs/path_navigation_msgs/clean
@@ -1503,6 +1506,24 @@ ur5_gazebo/preinstall:
 ur5_gazebo/clean:
 
 .PHONY : ur5_gazebo/clean
+
+#=============================================================================
+# Directory level rules for directory ur5_robotiq_camera_moveit_config
+
+# Recursive "all" directory target.
+ur5_robotiq_camera_moveit_config/all:
+
+.PHONY : ur5_robotiq_camera_moveit_config/all
+
+# Recursive "preinstall" directory target.
+ur5_robotiq_camera_moveit_config/preinstall:
+
+.PHONY : ur5_robotiq_camera_moveit_config/preinstall
+
+# Recursive "clean" directory target.
+ur5_robotiq_camera_moveit_config/clean:
+
+.PHONY : ur5_robotiq_camera_moveit_config/clean
 
 #=============================================================================
 # Directory level rules for directory ur5_robotiq_moveit_config

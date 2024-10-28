@@ -1,0 +1,19 @@
+<launch>
+    <!-- Load the robot description parameter-->
+    <param name="robot_description" command= "$(find xacro)/xacro --inorder $(find ur5_description)/urdf/ur5_gripper_camera.xacro" />
+
+    <!-- Read the joint value-->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"  />
+
+    <!-- Visualize in Rviz-->
+    <!--<node name="rviz" pkg="rviz" type="rviz" />-->
+    <node name="rviz" pkg="rviz" type="rviz" args = "-d $(find ur5_description)/config/config.rviz"/>
+
+    <!-- Visualization of the use_gui for playing with joint-->
+    <arg name="use_gui" default="true"/>
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"  output="screen" unless="$(arg use_gui)" />
+    <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui"  output="screen" if="$(arg use_gui)" />
+    
+    
+
+</launch>

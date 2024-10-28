@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="ur5_robot">
+
+  <xacro:include filename="$(find ur_description)/urdf/inc/ur5_macro.xacro"/>
+  <xacro:include filename="$(find ur5_description)/urdf/eef.xacro"/>
+
+  <xacro:include filename="$(find ur5_description)/urdf/sensors/kinetic_rgbd.urdf.xacro"/>
+
+  <!-- Constants -->
+  <xacro:property name="deg_to_rad" value="0.01745329251994329577"/>
+  <xacro:property name="M_SCALE" value="0.001 0.001 0.001"/> 
+  <xacro:property name="M_PI" value="3.14159"/>
+
+
+  <xacro:ur5_robot prefix="" />
+  <link name="world">
+  </link>
+  <joint name="fixed" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+        <origin xyz="0 0.0 0.8" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Define RGB-D sensor -->  
+  <xacro:kinetic_rgb name="rgbd_camera" parent="base">
+    <origin xyz="0.1 0.0 1.2" rpy="${0.0 * deg_to_rad} ${70.0 * deg_to_rad} ${0.0 * deg_to_rad}"/>
+    <origin xyz="0 0 0" rpy="${-90 * deg_to_rad} ${0 * deg_to_rad} ${-90 * deg_to_rad}" />
+  </xacro:kinetic_rgb>
+
+    <gazebo>
+      <plugin name="ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>/ur5</robotNamespace>
+        <!-- <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType> -->
+      </plugin>
+    </gazebo>
+</robot>
