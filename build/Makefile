@@ -3483,6 +3483,19 @@ try_data/fast:
 .PHONY : try_data/fast
 
 #=============================================================================
+# Target rules for targets named cylindrical_seg_stream
+
+# Build rule for target.
+cylindrical_seg_stream: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 cylindrical_seg_stream
+.PHONY : cylindrical_seg_stream
+
+# fast build rule for target.
+cylindrical_seg_stream/fast:
+	$(MAKE) -f 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/build.make 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/build
+.PHONY : cylindrical_seg_stream/fast
+
+#=============================================================================
 # Target rules for targets named control_toolbox_gencfg
 
 # Build rule for target.
@@ -6688,6 +6701,7 @@ help:
 	@echo "... object_isolation_data"
 	@echo "... pcl_msgs_generate_messages_py"
 	@echo "... try_data"
+	@echo "... cylindrical_seg_stream"
 	@echo "... control_toolbox_gencfg"
 	@echo "... control_toolbox_generate_messages_cpp"
 	@echo "... control_toolbox_generate_messages_eus"

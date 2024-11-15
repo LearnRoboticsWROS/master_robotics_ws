@@ -167,6 +167,9 @@ target_link_libraries(voxel_filtration ${catkin_LIBRARIES})
 add_executable(object_isolation_data src/object_isolation.cpp)
 target_link_libraries(object_isolation_data ${catkin_LIBRARIES})
 
+add_executable(cylindrical_seg_stream src/cylindrical_seg_stream.cpp)
+target_link_libraries(cylindrical_seg_stream ${catkin_LIBRARIES})
+
 #############
 ## Install ##
 #############

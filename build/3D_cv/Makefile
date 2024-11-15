@@ -557,6 +557,48 @@ try_data/fast:
 	cd /home/ros/master_ws/build && $(MAKE) -f 3D_cv/CMakeFiles/try_data.dir/build.make 3D_cv/CMakeFiles/try_data.dir/build
 .PHONY : try_data/fast
 
+# Convenience name for target.
+3D_cv/CMakeFiles/cylindrical_seg_stream.dir/rule:
+	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/rule
+.PHONY : 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/rule
+
+# Convenience name for target.
+cylindrical_seg_stream: 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/rule
+
+.PHONY : cylindrical_seg_stream
+
+# fast build rule for target.
+cylindrical_seg_stream/fast:
+	cd /home/ros/master_ws/build && $(MAKE) -f 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/build.make 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/build
+.PHONY : cylindrical_seg_stream/fast
+
+src/cylindrical_seg_stream.o: src/cylindrical_seg_stream.cpp.o
+
+.PHONY : src/cylindrical_seg_stream.o
+
+# target to build an object file
+src/cylindrical_seg_stream.cpp.o:
+	cd /home/ros/master_ws/build && $(MAKE) -f 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/build.make 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/src/cylindrical_seg_stream.cpp.o
+.PHONY : src/cylindrical_seg_stream.cpp.o
+
+src/cylindrical_seg_stream.i: src/cylindrical_seg_stream.cpp.i
+
+.PHONY : src/cylindrical_seg_stream.i
+
+# target to preprocess a source file
+src/cylindrical_seg_stream.cpp.i:
+	cd /home/ros/master_ws/build && $(MAKE) -f 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/build.make 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/src/cylindrical_seg_stream.cpp.i
+.PHONY : src/cylindrical_seg_stream.cpp.i
+
+src/cylindrical_seg_stream.s: src/cylindrical_seg_stream.cpp.s
+
+.PHONY : src/cylindrical_seg_stream.s
+
+# target to generate assembly for a file
+src/cylindrical_seg_stream.cpp.s:
+	cd /home/ros/master_ws/build && $(MAKE) -f 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/build.make 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/src/cylindrical_seg_stream.cpp.s
+.PHONY : src/cylindrical_seg_stream.cpp.s
+
 src/object_isolation.o: src/object_isolation.cpp.o
 
 .PHONY : src/object_isolation.o
@@ -703,7 +745,11 @@ help:
 	@echo "... object_isolation_data"
 	@echo "... pcl_msgs_generate_messages_py"
 	@echo "... try_data"
+	@echo "... cylindrical_seg_stream"
 	@echo "... test"
+	@echo "... src/cylindrical_seg_stream.o"
+	@echo "... src/cylindrical_seg_stream.i"
+	@echo "... src/cylindrical_seg_stream.s"
 	@echo "... src/object_isolation.o"
 	@echo "... src/object_isolation.i"
 	@echo "... src/object_isolation.s"

@@ -427,6 +427,7 @@
 /home/ros/master_ws/build/3D_cv/CMakeFiles/object_isolation_data.dir
 /home/ros/master_ws/build/3D_cv/CMakeFiles/pcl_msgs_generate_messages_py.dir
 /home/ros/master_ws/build/3D_cv/CMakeFiles/try_data.dir
+/home/ros/master_ws/build/3D_cv/CMakeFiles/cylindrical_seg_stream.dir
 /home/ros/master_ws/build/3D_cv/CMakeFiles/test.dir
 /home/ros/master_ws/build/roboticsgroup_upatras_gazebo_plugins/CMakeFiles/install/local.dir
 /home/ros/master_ws/build/roboticsgroup_upatras_gazebo_plugins/CMakeFiles/install/strip.dir

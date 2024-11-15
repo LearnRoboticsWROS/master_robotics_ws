@@ -1,3 +1,10 @@
+#include <ros/ros.h>
+
+#include <sensor_msgs/PointCloud2.h>
+#include <pcl_conversions/pcl_conversions.h>
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+
 #include <iostream>
 #include <filesystem>
 #include <math.h>
@@ -13,12 +20,18 @@
 #include <pcl/segmentation/sac_segmentation.h>
 #include <pcl/filters/voxel_grid.h>
 
-void isolateCylinder(const std::string& input_pcd, const std::string& output_pcd)
-{   
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-    pcl::PCDReader cloud_reader;
-    cloud_reader.read (input_pcd,*cloud);
+ros::Publisher pub;
 
+void 
+cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
+{   
+    
+    // Convert ROS PointCloud2 message to PCL PointCloud
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
+    pcl::fromROSMsg(*cloud_msg, *cloud);
+    
+
+    // Aplly voxel filter
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered(new pcl::PointCloud<pcl::PointXYZ>);
     pcl::VoxelGrid<pcl::PointXYZ> voxel_filter;
     voxel_filter.setInputCloud(cloud);
@@ -54,13 +67,13 @@ void isolateCylinder(const std::string& input_pcd, const std::string& output_pcd
     pass.setFilterLimits(0.5, 1.05); // PLAY --> based on the z direction, check the pcd file
     pass.filter(*cloud_filtered);
 
-    pass.setFilterFieldName("x");
-    pass.setFilterLimits(0.0, 0.2); // PLAY --> based on the x direction, check the pcd file
-    pass.filter(*cloud_filtered);
+    // pass.setFilterFieldName("x");
+    // pass.setFilterLimits(0.0, 0.2); // PLAY --> based on the x direction, check the pcd file
+    // pass.filter(*cloud_filtered);
 
-    pass.setFilterFieldName("y");
-    pass.setFilterLimits(-0.2, 0); // PLAY --> based on the y direction, check the pcd file
-    pass.filter(*cloud_filtered);
+    // pass.setFilterFieldName("y");
+    // pass.setFilterLimits(-0.2, 0); // PLAY --> based on the y direction, check the pcd file
+    // pass.filter(*cloud_filtered);
 
 
     // Remove outliers using a statistical outlier removal filter
@@ -122,20 +135,30 @@ void isolateCylinder(const std::string& input_pcd, const std::string& output_pcd
               << centroid[2] << ")" << std::endl;
 
 
-    pcl::PCDWriter cloud_writer;
-    cloud_writer.write<pcl::PointXYZ>(output_pcd,*cloud_filtered, false);
+
+
+    //********************** */
+    // Convert PCL PointCloud to ROS PointCloud2 message
+    sensor_msgs::PointCloud2 filtered_points;
+    pcl::toROSMsg(*cloud_filtered, filtered_points);
+
+    filtered_points.header = cloud_msg->header; // Preserve original header
+    // Publish the data
+    pub.publish(filtered_points);
 
 }
 
 
 int main(int argc, char** argv)
 {
-    std::string path_input="/home/ros/master_ws/src/3D_cv/src/inputs/";
-    std::string path_output="/home/ros/master_ws/src/3D_cv/src/outputs/";
-    std::string input_pcd = path_input + std::string("test.pcd");
-    std::string output_pcd = path_output+std::string("output_points.pcd");
+    // Initialize ROS
+    ros::init (argc, argv, "object_segmentation");
+    ros::NodeHandle nh;
 
-    isolateCylinder(input_pcd, output_pcd);
-
-    return 0;
+    // Create a subscriber
+    // Create a ROS subscriber for the input point cloud
+    ros::Subscriber sub = nh.subscribe<sensor_msgs::PointCloud2> ("/rgbd_camera/depth/points", 1, cloud_cb);
+    pub = nh.advertise<sensor_msgs::PointCloud2>("filtered", 1);
+    ros::spin();
+    return (0);
 }
