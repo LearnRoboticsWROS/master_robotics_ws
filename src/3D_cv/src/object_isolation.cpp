@@ -1,3 +1,4 @@
+#include <ros/ros.h>
 #include <iostream>
 #include <filesystem>
 #include <math.h>
@@ -62,7 +63,6 @@ void isolateCylinder(const std::string& input_pcd, const std::string& output_pcd
     pass.setFilterLimits(-0.2, 0); // PLAY --> based on the y direction, check the pcd file
     pass.filter(*cloud_filtered);
 
-
     // Remove outliers using a statistical outlier removal filter
     pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
     sor.setInputCloud(cloud_filtered);
@@ -70,7 +70,7 @@ void isolateCylinder(const std::string& input_pcd, const std::string& output_pcd
     sor.setStddevMulThresh(1.0);
     sor.filter(*cloud_filtered);
 
-    // *********** //
+
 
     // Segment the cylinder using RANSAC
     // Get the normals
@@ -81,7 +81,6 @@ void isolateCylinder(const std::string& input_pcd, const std::string& output_pcd
     normals_estimator.setInputCloud(cloud_filtered);
     normals_estimator.setKSearch(50); // play
     normals_estimator.compute(*cloud_normals);
-
 
     // Segmentation of the cylinder from the normals 
     pcl::SACSegmentationFromNormals<pcl::PointXYZ, pcl::PointNormal> cylinder_segmentator;
@@ -100,15 +99,14 @@ void isolateCylinder(const std::string& input_pcd, const std::string& output_pcd
     pcl::ModelCoefficients::Ptr coefficients_cylinder(new pcl::ModelCoefficients);
     cylinder_segmentator.segment(*inliers_cylinder,*coefficients_cylinder);
 
-
     // Extract the cylinder
     pcl::ExtractIndices<pcl::PointXYZ> cylinder_extracted;
     cylinder_extracted.setInputCloud(cloud_filtered);
     cylinder_extracted.setIndices(inliers_cylinder);
     cylinder_extracted.setNegative(false);
 
-
     cylinder_extracted.filter(*cloud_filtered);
+
 
 
     // compute the controid of the extracted cylinder points
@@ -124,10 +122,6 @@ void isolateCylinder(const std::string& input_pcd, const std::string& output_pcd
 
     pcl::PCDWriter cloud_writer;
     cloud_writer.write<pcl::PointXYZ>(output_pcd,*cloud_filtered, false);
-
-
-
-
 
 }
 

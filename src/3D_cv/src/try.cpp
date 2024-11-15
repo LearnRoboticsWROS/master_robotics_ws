@@ -13,22 +13,20 @@
 #include <pcl/segmentation/sac_segmentation.h>
 #include <pcl/filters/voxel_grid.h>
 
-
 void isolateCylinder(const std::string& input_pcd, const std::string& output_pcd)
-{
-    // Load the point cloud data from the PCD file
+{   
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
     pcl::PCDReader cloud_reader;
     cloud_reader.read (input_pcd,*cloud);
 
-    // Downsample the point cloud using a voxel grid filter
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered(new pcl::PointCloud<pcl::PointXYZ>);
     pcl::VoxelGrid<pcl::PointXYZ> voxel_filter;
     voxel_filter.setInputCloud(cloud);
-    voxel_filter.setLeafSize(0.0005,0.0005,0.0005); // PLAY ---> based on resolution
+    voxel_filter.setLeafSize(0.0005,0.0005,0.0005); // PLAY 
     voxel_filter.filter(*cloud_filtered);
 
-    // Segment the largest planar component frm the remaining cloud
+
+    // plane segmentation
     pcl::SACSegmentation<pcl::PointXYZ> seg;
     pcl::PointIndices::Ptr inliers_plane(new pcl::PointIndices);
     pcl::ModelCoefficients::Ptr coefficients_plane(new pcl::ModelCoefficients);
@@ -50,7 +48,6 @@ void isolateCylinder(const std::string& input_pcd, const std::string& output_pcd
     neg_plane_extraxted.setNegative(true);
     neg_plane_extraxted.filter(*cloud_filtered);
 
-    //Apply a pass-through filter to isolate the region of interest
     pcl::PassThrough<pcl::PointXYZ> pass;
     pass.setInputCloud(cloud_filtered);
     pass.setFilterFieldName("z");
@@ -58,12 +55,13 @@ void isolateCylinder(const std::string& input_pcd, const std::string& output_pcd
     pass.filter(*cloud_filtered);
 
     pass.setFilterFieldName("x");
-    pass.setFilterLimits(0.0, 0.2); // PLAY --> based on the z direction, check the pcd file
+    pass.setFilterLimits(0.0, 0.2); // PLAY --> based on the x direction, check the pcd file
     pass.filter(*cloud_filtered);
 
     pass.setFilterFieldName("y");
-    pass.setFilterLimits(-0.2, 0); // PLAY --> based on the z direction, check the pcd file
+    pass.setFilterLimits(-0.2, 0); // PLAY --> based on the y direction, check the pcd file
     pass.filter(*cloud_filtered);
+
 
     // Remove outliers using a statistical outlier removal filter
     pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
@@ -83,6 +81,7 @@ void isolateCylinder(const std::string& input_pcd, const std::string& output_pcd
     normals_estimator.setInputCloud(cloud_filtered);
     normals_estimator.setKSearch(50); // play
     normals_estimator.compute(*cloud_normals);
+
 
     // Segmentation of the cylinder from the normals 
     pcl::SACSegmentationFromNormals<pcl::PointXYZ, pcl::PointNormal> cylinder_segmentator;
@@ -123,16 +122,11 @@ void isolateCylinder(const std::string& input_pcd, const std::string& output_pcd
               << centroid[2] << ")" << std::endl;
 
 
-
-
-    // // //std::string path_output="/home/ros/test_ws/src/pcl_tutorial/clouds/output/";
     pcl::PCDWriter cloud_writer;
     cloud_writer.write<pcl::PointXYZ>(output_pcd,*cloud_filtered, false);
 
-
-
-
 }
+
 
 int main(int argc, char** argv)
 {
