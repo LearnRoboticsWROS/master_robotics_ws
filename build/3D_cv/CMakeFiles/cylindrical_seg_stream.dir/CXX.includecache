@@ -45,6 +45,24 @@ pcl/segmentation/sac_segmentation.h
 -
 pcl/filters/voxel_grid.h
 -
+geometry_msgs/Point.h
+-
+
+/opt/ros/noetic/include/geometry_msgs/Point.h
+string
+-
+vector
+-
+memory
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
 
 /opt/ros/noetic/include/pcl_conversions/pcl_conversions.h
 vector

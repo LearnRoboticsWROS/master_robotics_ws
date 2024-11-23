@@ -20,7 +20,10 @@
 #include <pcl/segmentation/sac_segmentation.h>
 #include <pcl/filters/voxel_grid.h>
 
+#include <geometry_msgs/Point.h>
+
 ros::Publisher pub;
+ros::Publisher pub_cam;
 
 void 
 cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
@@ -135,8 +138,6 @@ cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
               << centroid[2] << ")" << std::endl;
 
 
-
-
     //********************** */
     // Convert PCL PointCloud to ROS PointCloud2 message
     sensor_msgs::PointCloud2 filtered_points;
@@ -145,6 +146,13 @@ cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
     filtered_points.header = cloud_msg->header; // Preserve original header
     // Publish the data
     pub.publish(filtered_points);
+
+    // Publish the data of the centroid
+    geometry_msgs::Point position_camera_frame;
+    position_camera_frame.x = centroid[0];
+    position_camera_frame.y = centroid[1];
+    position_camera_frame.z = centroid[2];
+    pub_cam.publish(position_camera_frame);
 
 }
 
@@ -159,6 +167,7 @@ int main(int argc, char** argv)
     // Create a ROS subscriber for the input point cloud
     ros::Subscriber sub = nh.subscribe<sensor_msgs::PointCloud2> ("/rgbd_camera/depth/points", 1, cloud_cb);
     pub = nh.advertise<sensor_msgs::PointCloud2>("filtered", 1);
+    pub_cam = nh.advertise<geometry_msgs::Point> ("object_position_camera_frame", 1);
     ros::spin();
     return (0);
 }

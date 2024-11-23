@@ -5,11 +5,13 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 import cv2 as cv
 import numpy as np
+from geometry_msgs.msg import Point
 
 class ColorFilter(object):
     def __init__(self):
         self.image_sub = rospy.Subscriber("/cobot/camera1/image_raw", Image, self.camera_callback)
         self.bridge_object = CvBridge()
+        self.pub = rospy.Publisher("object_position_camera_frame", Point, queue_size=10)
     
     def camera_callback(self, data):
         try:
@@ -43,7 +45,7 @@ class ColorFilter(object):
         # print(object_detected)
 
         # Conversion between image frame to camera_link frame
-        pxl_mm_conversion = 15/20
+        pxl_m_conversion = 15/0.02
         # coordinate image
         x_pxl_center = 319 
         y_pxl_center = 240
@@ -51,7 +53,7 @@ class ColorFilter(object):
         # coordinate camera_link
         z0 = 0
         y0 = 0
-        x0 = 700
+        x0 = 0.7
 
         for cnt in object_detected:
             rect = cv.minAreaRect(cnt)
@@ -66,26 +68,26 @@ class ColorFilter(object):
             # Top right of the image
             if (x_center > x_pxl_center) and (y_center < y_pxl_center):
                 x = x0
-                y = y0 - (x_center-x_pxl_center)/pxl_mm_conversion
-                z = z0 + (y_pxl_center-y_center)/pxl_mm_conversion
+                y = y0 - (x_center-x_pxl_center)/pxl_m_conversion
+                z = z0 + (y_pxl_center-y_center)/pxl_m_conversion
 
             # Bottom right of the image
             elif (x_center > x_pxl_center) and (y_center > y_pxl_center):
                 x = x0
-                y = y0 - (x_center-x_pxl_center)/pxl_mm_conversion
-                z = z0 - (y_center - y_pxl_center)/pxl_mm_conversion
+                y = y0 - (x_center-x_pxl_center)/pxl_m_conversion
+                z = z0 - (y_center - y_pxl_center)/pxl_m_conversion
 
             # Bottom left of the image
             elif (x_center < x_pxl_center) and (y_center > y_pxl_center):
                 x = x0
-                y = y0 + (x_pxl_center - x_center)/pxl_mm_conversion
-                z = z0 - (y_center-y_pxl_center)/pxl_mm_conversion
+                y = y0 + (x_pxl_center - x_center)/pxl_m_conversion
+                z = z0 - (y_center-y_pxl_center)/pxl_m_conversion
 
             # Top left of the image
             elif (x_center < x_pxl_center) and (y_center < y_pxl_center):
                 x = x0
-                y = y0 + (x_pxl_center - x_center)/pxl_mm_conversion
-                z = z0 + (y_pxl_center-y_center)/pxl_mm_conversion
+                y = y0 + (x_pxl_center - x_center)/pxl_m_conversion
+                z = z0 + (y_pxl_center-y_center)/pxl_m_conversion
 
             elif (x_center== x_pxl_center) and (y_center== y_pxl_center):
                 x = x0
@@ -98,7 +100,17 @@ class ColorFilter(object):
             print("y_camera: " + str(y))
             print("z_camera: " + str(z))
 
+            self.x_pos= x
+            self.y_pos= y
+            self.z_pos= z
 
+
+        position_camera_frame = Point()
+        position_camera_frame.x = self.x_pos
+        position_camera_frame.y = self.y_pos
+        position_camera_frame.z = self.z_pos
+
+        self.pub.publish(position_camera_frame)
 
         cv.imshow('original', cv_image)
         cv.imshow('hsv', hsv_image)

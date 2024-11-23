@@ -3,6 +3,7 @@
 
 3D_cv/CMakeFiles/try_data.dir/src/try.cpp.o
  /home/ros/master_ws/src/3D_cv/src/try.cpp
+ /opt/ros/noetic/include/geometry_msgs/Point.h
  /opt/ros/noetic/include/pcl_conversions/pcl_conversions.h
  /opt/ros/noetic/include/pcl_msgs/ModelCoefficients.h
  /opt/ros/noetic/include/pcl_msgs/PointIndices.h
