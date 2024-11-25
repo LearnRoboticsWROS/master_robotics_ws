@@ -56,6 +56,17 @@ CMAKE_BINARY_DIR = /home/ros/master_ws/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
+
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
@@ -68,17 +79,37 @@ install/strip/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
 
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
 
 # Special rule for the target install
 install: preinstall
@@ -92,48 +123,17 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
 
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -168,49 +168,19 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/rule:
-	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/rule
-.PHONY : robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/rule
+robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/rule:
+	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/rule
+.PHONY : robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/rule
 
 # Convenience name for target.
-ur5_pick_place_class: robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/rule
+moveit_ros_manipulation_gencfg: robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/rule
 
-.PHONY : ur5_pick_place_class
+.PHONY : moveit_ros_manipulation_gencfg
 
 # fast build rule for target.
-ur5_pick_place_class/fast:
-	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/build
-.PHONY : ur5_pick_place_class/fast
-
-# Convenience name for target.
-robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/rule:
-	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/rule
-.PHONY : robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/rule
-
-# Convenience name for target.
-pick_place_class: robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/rule
-
-.PHONY : pick_place_class
-
-# fast build rule for target.
-pick_place_class/fast:
-	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/build
-.PHONY : pick_place_class/fast
-
-# Convenience name for target.
-robot_inverse_kinematics/CMakeFiles/pick_place.dir/rule:
-	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/pick_place.dir/rule
-.PHONY : robot_inverse_kinematics/CMakeFiles/pick_place.dir/rule
-
-# Convenience name for target.
-pick_place: robot_inverse_kinematics/CMakeFiles/pick_place.dir/rule
-
-.PHONY : pick_place
-
-# fast build rule for target.
-pick_place/fast:
-	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place.dir/build
-.PHONY : pick_place/fast
+moveit_ros_manipulation_gencfg/fast:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/build.make robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/build
+.PHONY : moveit_ros_manipulation_gencfg/fast
 
 # Convenience name for target.
 robot_inverse_kinematics/CMakeFiles/test_ik_collision_objects.dir/rule:
@@ -228,6 +198,51 @@ test_ik_collision_objects/fast:
 .PHONY : test_ik_collision_objects/fast
 
 # Convenience name for target.
+robot_inverse_kinematics/CMakeFiles/test_module.dir/rule:
+	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/test_module.dir/rule
+.PHONY : robot_inverse_kinematics/CMakeFiles/test_module.dir/rule
+
+# Convenience name for target.
+test_module: robot_inverse_kinematics/CMakeFiles/test_module.dir/rule
+
+.PHONY : test_module
+
+# fast build rule for target.
+test_module/fast:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/test_module.dir/build.make robot_inverse_kinematics/CMakeFiles/test_module.dir/build
+.PHONY : test_module/fast
+
+# Convenience name for target.
+robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/rule:
+	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/rule
+.PHONY : robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/rule
+
+# Convenience name for target.
+pick_place_class: robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/rule
+
+.PHONY : pick_place_class
+
+# fast build rule for target.
+pick_place_class/fast:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/build
+.PHONY : pick_place_class/fast
+
+# Convenience name for target.
+robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/rule:
+	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/rule
+.PHONY : robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/rule
+
+# Convenience name for target.
+ur5_pick_place_class: robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/rule
+
+.PHONY : ur5_pick_place_class
+
+# fast build rule for target.
+ur5_pick_place_class/fast:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/build
+.PHONY : ur5_pick_place_class/fast
+
+# Convenience name for target.
 robot_inverse_kinematics/CMakeFiles/test_ik.dir/rule:
 	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/test_ik.dir/rule
 .PHONY : robot_inverse_kinematics/CMakeFiles/test_ik.dir/rule
@@ -243,19 +258,19 @@ test_ik/fast:
 .PHONY : test_ik/fast
 
 # Convenience name for target.
-robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/rule:
-	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/rule
-.PHONY : robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/rule
+robot_inverse_kinematics/CMakeFiles/pick_place.dir/rule:
+	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/pick_place.dir/rule
+.PHONY : robot_inverse_kinematics/CMakeFiles/pick_place.dir/rule
 
 # Convenience name for target.
-moveit_ros_manipulation_gencfg: robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/rule
+pick_place: robot_inverse_kinematics/CMakeFiles/pick_place.dir/rule
 
-.PHONY : moveit_ros_manipulation_gencfg
+.PHONY : pick_place
 
 # fast build rule for target.
-moveit_ros_manipulation_gencfg/fast:
-	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/build.make robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/build
-.PHONY : moveit_ros_manipulation_gencfg/fast
+pick_place/fast:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place.dir/build
+.PHONY : pick_place/fast
 
 src/pick_place.o: src/pick_place.cpp.o
 
@@ -290,8 +305,8 @@ src/pick_place_class.o: src/pick_place_class.cpp.o
 
 # target to build an object file
 src/pick_place_class.cpp.o:
-	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/src/pick_place_class.cpp.o
 	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/src/pick_place_class.cpp.o
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/src/pick_place_class.cpp.o
 .PHONY : src/pick_place_class.cpp.o
 
 src/pick_place_class.i: src/pick_place_class.cpp.i
@@ -300,8 +315,8 @@ src/pick_place_class.i: src/pick_place_class.cpp.i
 
 # target to preprocess a source file
 src/pick_place_class.cpp.i:
-	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/src/pick_place_class.cpp.i
 	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/src/pick_place_class.cpp.i
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/src/pick_place_class.cpp.i
 .PHONY : src/pick_place_class.cpp.i
 
 src/pick_place_class.s: src/pick_place_class.cpp.s
@@ -310,8 +325,8 @@ src/pick_place_class.s: src/pick_place_class.cpp.s
 
 # target to generate assembly for a file
 src/pick_place_class.cpp.s:
-	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/src/pick_place_class.cpp.s
 	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/src/pick_place_class.cpp.s
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/src/pick_place_class.cpp.s
 .PHONY : src/pick_place_class.cpp.s
 
 src/test_ik.o: src/test_ik.cpp.o
@@ -368,25 +383,53 @@ src/test_ik_collision_objects.cpp.s:
 	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/test_ik_collision_objects.dir/build.make robot_inverse_kinematics/CMakeFiles/test_ik_collision_objects.dir/src/test_ik_collision_objects.cpp.s
 .PHONY : src/test_ik_collision_objects.cpp.s
 
+src/test_module.o: src/test_module.cpp.o
+
+.PHONY : src/test_module.o
+
+# target to build an object file
+src/test_module.cpp.o:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/test_module.dir/build.make robot_inverse_kinematics/CMakeFiles/test_module.dir/src/test_module.cpp.o
+.PHONY : src/test_module.cpp.o
+
+src/test_module.i: src/test_module.cpp.i
+
+.PHONY : src/test_module.i
+
+# target to preprocess a source file
+src/test_module.cpp.i:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/test_module.dir/build.make robot_inverse_kinematics/CMakeFiles/test_module.dir/src/test_module.cpp.i
+.PHONY : src/test_module.cpp.i
+
+src/test_module.s: src/test_module.cpp.s
+
+.PHONY : src/test_module.s
+
+# target to generate assembly for a file
+src/test_module.cpp.s:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/test_module.dir/build.make robot_inverse_kinematics/CMakeFiles/test_module.dir/src/test_module.cpp.s
+.PHONY : src/test_module.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
-	@echo "... install/local"
-	@echo "... install"
-	@echo "... list_install_components"
-	@echo "... rebuild_cache"
-	@echo "... ur5_pick_place_class"
-	@echo "... pick_place_class"
-	@echo "... pick_place"
-	@echo "... test_ik_collision_objects"
-	@echo "... edit_cache"
-	@echo "... test"
-	@echo "... test_ik"
 	@echo "... moveit_ros_manipulation_gencfg"
+	@echo "... test"
+	@echo "... test_ik_collision_objects"
+	@echo "... test_module"
+	@echo "... install/strip"
+	@echo "... pick_place_class"
+	@echo "... ur5_pick_place_class"
+	@echo "... test_ik"
+	@echo "... edit_cache"
+	@echo "... pick_place"
+	@echo "... rebuild_cache"
+	@echo "... list_install_components"
+	@echo "... install"
+	@echo "... install/local"
 	@echo "... src/pick_place.o"
 	@echo "... src/pick_place.i"
 	@echo "... src/pick_place.s"
@@ -399,6 +442,9 @@ help:
 	@echo "... src/test_ik_collision_objects.o"
 	@echo "... src/test_ik_collision_objects.i"
 	@echo "... src/test_ik_collision_objects.s"
+	@echo "... src/test_module.o"
+	@echo "... src/test_module.i"
+	@echo "... src/test_module.s"
 .PHONY : help
 
 

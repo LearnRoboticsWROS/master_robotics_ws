@@ -19,6 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   sensor_msgs
   std_msgs
+  frame_transform
 )
 
 ## System dependencies are found with CMake's conventions
@@ -221,6 +222,10 @@ target_link_libraries(pick_place_class ${catkin_LIBRARIES})
 add_executable(ur5_pick_place_class src/pick_place_class.cpp)
 add_dependencies(ur5_pick_place_class ${cobot_test_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(ur5_pick_place_class ${catkin_LIBRARIES})
+
+add_executable(test_module src/test_module.cpp)
+add_dependencies(test_module ${cobot_test_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(test_module ${catkin_LIBRARIES})
 #############
 ## Testing ##
 #############

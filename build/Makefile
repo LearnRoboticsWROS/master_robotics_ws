@@ -3314,19 +3314,6 @@ nodelet_generate_messages_py/fast:
 .PHONY : nodelet_generate_messages_py/fast
 
 #=============================================================================
-# Target rules for targets named pcl_msgs_generate_messages_lisp
-
-# Build rule for target.
-pcl_msgs_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pcl_msgs_generate_messages_lisp
-.PHONY : pcl_msgs_generate_messages_lisp
-
-# fast build rule for target.
-pcl_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f 3D_cv/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/build.make 3D_cv/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/build
-.PHONY : pcl_msgs_generate_messages_lisp/fast
-
-#=============================================================================
 # Target rules for targets named bond_generate_messages_lisp
 
 # Build rule for target.
@@ -3650,6 +3637,32 @@ cylindrical_seg_stream: cmake_check_build_system
 cylindrical_seg_stream/fast:
 	$(MAKE) -f 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/build.make 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/build
 .PHONY : cylindrical_seg_stream/fast
+
+#=============================================================================
+# Target rules for targets named pcl_msgs_generate_messages_lisp
+
+# Build rule for target.
+pcl_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcl_msgs_generate_messages_lisp
+.PHONY : pcl_msgs_generate_messages_lisp
+
+# fast build rule for target.
+pcl_msgs_generate_messages_lisp/fast:
+	$(MAKE) -f 3D_cv/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/build.make 3D_cv/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/build
+.PHONY : pcl_msgs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named youtube_pcl_tutorial
+
+# Build rule for target.
+youtube_pcl_tutorial: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 youtube_pcl_tutorial
+.PHONY : youtube_pcl_tutorial
+
+# fast build rule for target.
+youtube_pcl_tutorial/fast:
+	$(MAKE) -f 3D_cv/CMakeFiles/youtube_pcl_tutorial.dir/build.make 3D_cv/CMakeFiles/youtube_pcl_tutorial.dir/build
+.PHONY : youtube_pcl_tutorial/fast
 
 #=============================================================================
 # Target rules for targets named control_toolbox_gencfg
@@ -6512,43 +6525,17 @@ ur20_moveit_plugin/fast:
 .PHONY : ur20_moveit_plugin/fast
 
 #=============================================================================
-# Target rules for targets named ur5_pick_place_class
+# Target rules for targets named moveit_ros_manipulation_gencfg
 
 # Build rule for target.
-ur5_pick_place_class: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ur5_pick_place_class
-.PHONY : ur5_pick_place_class
+moveit_ros_manipulation_gencfg: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 moveit_ros_manipulation_gencfg
+.PHONY : moveit_ros_manipulation_gencfg
 
 # fast build rule for target.
-ur5_pick_place_class/fast:
-	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/build
-.PHONY : ur5_pick_place_class/fast
-
-#=============================================================================
-# Target rules for targets named pick_place_class
-
-# Build rule for target.
-pick_place_class: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pick_place_class
-.PHONY : pick_place_class
-
-# fast build rule for target.
-pick_place_class/fast:
-	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/build
-.PHONY : pick_place_class/fast
-
-#=============================================================================
-# Target rules for targets named pick_place
-
-# Build rule for target.
-pick_place: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pick_place
-.PHONY : pick_place
-
-# fast build rule for target.
-pick_place/fast:
-	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place.dir/build
-.PHONY : pick_place/fast
+moveit_ros_manipulation_gencfg/fast:
+	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/build.make robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/build
+.PHONY : moveit_ros_manipulation_gencfg/fast
 
 #=============================================================================
 # Target rules for targets named test_ik_collision_objects
@@ -6564,6 +6551,45 @@ test_ik_collision_objects/fast:
 .PHONY : test_ik_collision_objects/fast
 
 #=============================================================================
+# Target rules for targets named test_module
+
+# Build rule for target.
+test_module: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_module
+.PHONY : test_module
+
+# fast build rule for target.
+test_module/fast:
+	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/test_module.dir/build.make robot_inverse_kinematics/CMakeFiles/test_module.dir/build
+.PHONY : test_module/fast
+
+#=============================================================================
+# Target rules for targets named pick_place_class
+
+# Build rule for target.
+pick_place_class: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pick_place_class
+.PHONY : pick_place_class
+
+# fast build rule for target.
+pick_place_class/fast:
+	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/build
+.PHONY : pick_place_class/fast
+
+#=============================================================================
+# Target rules for targets named ur5_pick_place_class
+
+# Build rule for target.
+ur5_pick_place_class: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ur5_pick_place_class
+.PHONY : ur5_pick_place_class
+
+# fast build rule for target.
+ur5_pick_place_class/fast:
+	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/build.make robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/build
+.PHONY : ur5_pick_place_class/fast
+
+#=============================================================================
 # Target rules for targets named test_ik
 
 # Build rule for target.
@@ -6577,17 +6603,17 @@ test_ik/fast:
 .PHONY : test_ik/fast
 
 #=============================================================================
-# Target rules for targets named moveit_ros_manipulation_gencfg
+# Target rules for targets named pick_place
 
 # Build rule for target.
-moveit_ros_manipulation_gencfg: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 moveit_ros_manipulation_gencfg
-.PHONY : moveit_ros_manipulation_gencfg
+pick_place: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pick_place
+.PHONY : pick_place
 
 # fast build rule for target.
-moveit_ros_manipulation_gencfg/fast:
-	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/build.make robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/build
-.PHONY : moveit_ros_manipulation_gencfg/fast
+pick_place/fast:
+	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place.dir/build
+.PHONY : pick_place/fast
 
 # Help Target
 help:
@@ -6844,7 +6870,6 @@ help:
 	@echo "... gazebo_map_publisher"
 	@echo "... gazebo_object_info"
 	@echo "... nodelet_generate_messages_py"
-	@echo "... pcl_msgs_generate_messages_lisp"
 	@echo "... bond_generate_messages_lisp"
 	@echo "... nodelet_generate_messages_lisp"
 	@echo "... nodelet_generate_messages_eus"
@@ -6870,6 +6895,8 @@ help:
 	@echo "... pcl_msgs_generate_messages_py"
 	@echo "... try_data"
 	@echo "... cylindrical_seg_stream"
+	@echo "... pcl_msgs_generate_messages_lisp"
+	@echo "... youtube_pcl_tutorial"
 	@echo "... control_toolbox_gencfg"
 	@echo "... control_toolbox_generate_messages_cpp"
 	@echo "... control_toolbox_generate_messages_eus"
@@ -7090,12 +7117,13 @@ help:
 	@echo "... ur3e_moveit_plugin"
 	@echo "... ur30_moveit_plugin"
 	@echo "... ur20_moveit_plugin"
-	@echo "... ur5_pick_place_class"
-	@echo "... pick_place_class"
-	@echo "... pick_place"
-	@echo "... test_ik_collision_objects"
-	@echo "... test_ik"
 	@echo "... moveit_ros_manipulation_gencfg"
+	@echo "... test_ik_collision_objects"
+	@echo "... test_module"
+	@echo "... pick_place_class"
+	@echo "... ur5_pick_place_class"
+	@echo "... test_ik"
+	@echo "... pick_place"
 .PHONY : help
 
 

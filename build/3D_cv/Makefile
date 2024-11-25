@@ -183,21 +183,6 @@ nodelet_generate_messages_py/fast:
 .PHONY : nodelet_generate_messages_py/fast
 
 # Convenience name for target.
-3D_cv/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/rule:
-	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 3D_cv/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/rule
-.PHONY : 3D_cv/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-pcl_msgs_generate_messages_lisp: 3D_cv/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : pcl_msgs_generate_messages_lisp
-
-# fast build rule for target.
-pcl_msgs_generate_messages_lisp/fast:
-	cd /home/ros/master_ws/build && $(MAKE) -f 3D_cv/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/build.make 3D_cv/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/build
-.PHONY : pcl_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
 3D_cv/CMakeFiles/bond_generate_messages_lisp.dir/rule:
 	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 3D_cv/CMakeFiles/bond_generate_messages_lisp.dir/rule
 .PHONY : 3D_cv/CMakeFiles/bond_generate_messages_lisp.dir/rule
@@ -572,6 +557,36 @@ cylindrical_seg_stream/fast:
 	cd /home/ros/master_ws/build && $(MAKE) -f 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/build.make 3D_cv/CMakeFiles/cylindrical_seg_stream.dir/build
 .PHONY : cylindrical_seg_stream/fast
 
+# Convenience name for target.
+3D_cv/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/rule:
+	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 3D_cv/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/rule
+.PHONY : 3D_cv/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+pcl_msgs_generate_messages_lisp: 3D_cv/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : pcl_msgs_generate_messages_lisp
+
+# fast build rule for target.
+pcl_msgs_generate_messages_lisp/fast:
+	cd /home/ros/master_ws/build && $(MAKE) -f 3D_cv/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/build.make 3D_cv/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/build
+.PHONY : pcl_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+3D_cv/CMakeFiles/youtube_pcl_tutorial.dir/rule:
+	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 3D_cv/CMakeFiles/youtube_pcl_tutorial.dir/rule
+.PHONY : 3D_cv/CMakeFiles/youtube_pcl_tutorial.dir/rule
+
+# Convenience name for target.
+youtube_pcl_tutorial: 3D_cv/CMakeFiles/youtube_pcl_tutorial.dir/rule
+
+.PHONY : youtube_pcl_tutorial
+
+# fast build rule for target.
+youtube_pcl_tutorial/fast:
+	cd /home/ros/master_ws/build && $(MAKE) -f 3D_cv/CMakeFiles/youtube_pcl_tutorial.dir/build.make 3D_cv/CMakeFiles/youtube_pcl_tutorial.dir/build
+.PHONY : youtube_pcl_tutorial/fast
+
 src/cylindrical_seg_stream.o: src/cylindrical_seg_stream.cpp.o
 
 .PHONY : src/cylindrical_seg_stream.o
@@ -707,6 +722,33 @@ src/voxel.cpp.s:
 	cd /home/ros/master_ws/build && $(MAKE) -f 3D_cv/CMakeFiles/voxel_filtration.dir/build.make 3D_cv/CMakeFiles/voxel_filtration.dir/src/voxel.cpp.s
 .PHONY : src/voxel.cpp.s
 
+src/youtube_pcl_tutorial.o: src/youtube_pcl_tutorial.cpp.o
+
+.PHONY : src/youtube_pcl_tutorial.o
+
+# target to build an object file
+src/youtube_pcl_tutorial.cpp.o:
+	cd /home/ros/master_ws/build && $(MAKE) -f 3D_cv/CMakeFiles/youtube_pcl_tutorial.dir/build.make 3D_cv/CMakeFiles/youtube_pcl_tutorial.dir/src/youtube_pcl_tutorial.cpp.o
+.PHONY : src/youtube_pcl_tutorial.cpp.o
+
+src/youtube_pcl_tutorial.i: src/youtube_pcl_tutorial.cpp.i
+
+.PHONY : src/youtube_pcl_tutorial.i
+
+# target to preprocess a source file
+src/youtube_pcl_tutorial.cpp.i:
+	cd /home/ros/master_ws/build && $(MAKE) -f 3D_cv/CMakeFiles/youtube_pcl_tutorial.dir/build.make 3D_cv/CMakeFiles/youtube_pcl_tutorial.dir/src/youtube_pcl_tutorial.cpp.i
+.PHONY : src/youtube_pcl_tutorial.cpp.i
+
+src/youtube_pcl_tutorial.s: src/youtube_pcl_tutorial.cpp.s
+
+.PHONY : src/youtube_pcl_tutorial.s
+
+# target to generate assembly for a file
+src/youtube_pcl_tutorial.cpp.s:
+	cd /home/ros/master_ws/build && $(MAKE) -f 3D_cv/CMakeFiles/youtube_pcl_tutorial.dir/build.make 3D_cv/CMakeFiles/youtube_pcl_tutorial.dir/src/youtube_pcl_tutorial.cpp.s
+.PHONY : src/youtube_pcl_tutorial.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -717,7 +759,6 @@ help:
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... nodelet_generate_messages_py"
-	@echo "... pcl_msgs_generate_messages_lisp"
 	@echo "... bond_generate_messages_lisp"
 	@echo "... nodelet_generate_messages_lisp"
 	@echo "... nodelet_generate_messages_eus"
@@ -746,6 +787,8 @@ help:
 	@echo "... pcl_msgs_generate_messages_py"
 	@echo "... try_data"
 	@echo "... cylindrical_seg_stream"
+	@echo "... pcl_msgs_generate_messages_lisp"
+	@echo "... youtube_pcl_tutorial"
 	@echo "... test"
 	@echo "... src/cylindrical_seg_stream.o"
 	@echo "... src/cylindrical_seg_stream.i"
@@ -762,6 +805,9 @@ help:
 	@echo "... src/voxel.o"
 	@echo "... src/voxel.i"
 	@echo "... src/voxel.s"
+	@echo "... src/youtube_pcl_tutorial.o"
+	@echo "... src/youtube_pcl_tutorial.i"
+	@echo "... src/youtube_pcl_tutorial.s"
 .PHONY : help
 
 

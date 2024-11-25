@@ -170,6 +170,9 @@ target_link_libraries(object_isolation_data ${catkin_LIBRARIES})
 add_executable(cylindrical_seg_stream src/cylindrical_seg_stream.cpp)
 target_link_libraries(cylindrical_seg_stream ${catkin_LIBRARIES})
 
+add_executable(youtube_pcl_tutorial src/youtube_pcl_tutorial.cpp)
+target_link_libraries(youtube_pcl_tutorial ${catkin_LIBRARIES})
+
 #############
 ## Install ##
 #############
