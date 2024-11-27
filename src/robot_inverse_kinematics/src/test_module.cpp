@@ -17,6 +17,7 @@ public:
 
     void close_gripper(moveit::planning_interface::MoveGroupInterface& gripper)
     {
+        gripper.setMaxVelocityScalingFactor(0.5);
         gripper.setJointValueTarget("finger_right_joint", 0.04);
         gripper.move();
     }
@@ -26,6 +27,8 @@ public:
         gripper.setJointValueTarget("finger_right_joint", 0.0);
         gripper.move();
     }
+
+    
 
     void pick(moveit::planning_interface::MoveGroupInterface& move_group)
     {
@@ -46,19 +49,37 @@ public:
             pick_position.position.x = service.response.x_base_link_frame;
             pick_position.position.y = service.response.y_base_link_frame;
             pick_position.position.z = service.response.z_base_link_frame;
-            
+
+            ROS_INFO_STREAM("Pick position (x, y, z): ("
+                                <<
+                                pick_position.position.x <<", "
+                                <<
+                                pick_position.position.y <<", " 
+                                <<
+                                pick_position.position.z <<")");
+
+            //check the workspace
+            // if (pick_position.position.x < min_x || pick_position.position.x >max_x || pick_position.position.y < min_y || pick_position.position.y >max_y || pick_position.position.z < min_z || pick_position.position.z >max_z)
+            // {
+            //     ROS_ERROR("Piick position is out of the robot's workspace.");
+            //     return;
+            // }
+        move_group.setPoseTarget(pick_position, "picking_point");
+
+        bool success = (move_group.move()==moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        if (!success)
+        {
+            ROS_ERROR("MoveIt failed to plan and execute the pick motion.");
+            return;
+        }
+
+
         }
         else
         {
-            ROS_WARN("Service failed :( ");
+            ROS_ERROR("Service failed to call /get_position_base_link service, aborting the pick :( ");
+            return;
         }
-
-
-
-
-        move_group.setPoseTarget(pick_position, "picking_point");
-
-        move_group.move();
     }
 
     void place(moveit::planning_interface::MoveGroupInterface& move_group_place)
@@ -95,6 +116,7 @@ private:
 
     
 };
+   
 
     void addCollisionObject(moveit::planning_interface::PlanningSceneInterface& planning_scene_interface)
     {
@@ -192,38 +214,21 @@ private:
         planning_scene_interface.applyCollisionObjects(collision_objects);
     }
 
-    // void attachCollisionObject()
-    // {
-    //     //moveit_msgs::AttachedCollisionObject attached_object;
-    //     attached_object.link_name = "picking_point";
-    //     attached_object.object = collision_objects[3];  
+    void setGripperConstraints(moveit::planning_interface::MoveGroupInterface& gripper)
+    {
+        moveit_msgs::Constraints gripper_constraints;
+        moveit_msgs::JointConstraint joint_constraint;
+        joint_constraint.joint_name = "finger_right_joint";
+        joint_constraint.position = 0.04;
+        joint_constraint.tolerance_above = 0.001;
+        joint_constraint.tolerance_below = 0.001;
+        joint_constraint.weight = 1.0;
 
-    //     attached_object.object.operation = attached_object.object.ADD;
+        gripper_constraints.joint_constraints.push_back(joint_constraint);
+        gripper.setPathConstraints(gripper_constraints);
+    }
 
-    //     std::vector<std::string> touch_links;
-    //     // touch_links.push_back("picking_point");
-    //     // attached_object.touch_links = touch_links;
 
-    //     touch_links.push_back("finger_left");
-    //     touch_links.push_back("finger_right");
-    //     touch_links.push_back("picking_point");
-    //     attached_object.touch_links = touch_links;
-
-    //     planning_scene_interface.applyAttachedCollisionObject(attached_object);
-    // }
-
-    // void detachCollisionObject()
-    // {
-    //     // Specify the link to which the object is currently attached
-    //     attached_object.link_name = "picking_point";
-
-    //     // Define the operation as removing the attachment
-    //     attached_object.object.operation = attached_object.object.REMOVE;
-
-    //     // Apply the detachment operation to the planning scene
-    //     planning_scene_interface.applyAttachedCollisionObject(attached_object);
-
-    // }
 
 
 
@@ -242,8 +247,8 @@ int main(int argc, char** argv)
     group.setPlanningTime(45.0);
 
     // setup the speed and accelleration
-    group.setMaxVelocityScalingFactor(1.0);
-    group.setMaxAccelerationScalingFactor(1.0);
+    group.setMaxVelocityScalingFactor(1.0);   // added
+    group.setMaxAccelerationScalingFactor(1.0);   // added
 
 
     addCollisionObject(planning_scene_interface);
@@ -256,11 +261,15 @@ int main(int argc, char** argv)
     PickAndPlace pick_and_place;
     
     ros::WallDuration(1.0).sleep();
+    setGripperConstraints(gripper);
     pick_and_place.pick(group);
+    gripper.clearPathConstraints();
     ros::WallDuration(2.0).sleep(); // increased to 2
     pick_and_place.close_gripper(gripper);
     ros::WallDuration(1.0).sleep();
+    setGripperConstraints(gripper);
     pick_and_place.place(group);
+    gripper.clearPathConstraints();
     ros::WallDuration(1.0).sleep();
     pick_and_place.open_gripper(gripper);
     ros::WallDuration(1.0).sleep();

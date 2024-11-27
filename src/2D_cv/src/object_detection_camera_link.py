@@ -45,7 +45,7 @@ class ColorFilter(object):
         # print(object_detected)
 
         # Conversion between image frame to camera_link frame
-        pxl_m_conversion = 15/0.02
+        pxl_m_conversion = 16/0.02
         # coordinate image
         x_pxl_center = 319 
         y_pxl_center = 240
@@ -58,7 +58,7 @@ class ColorFilter(object):
         for cnt in object_detected:
             rect = cv.minAreaRect(cnt)
             (x_center, y_center), (w,h), orientation = rect
-            # print("width: "+str(w)+" height: " +str(h))
+            print("width: "+str(w)+" height: " +str(h))
             box = cv.boxPoints(rect)
             box = np.int0(box)
             cv.polylines(cv_image, [box], True, (0, 255,0),1)
@@ -96,9 +96,9 @@ class ColorFilter(object):
 
             cv.putText(cv_image, "y_camera: {}".format(round(y, 1)) + " z_camera: {}".format(round(z,1)), (int(x_center), int(y_center)), cv.FONT_HERSHEY_PLAIN, 1, (0,255,0),1)
             cv.circle(cv_image, (int(x_center), int(y_center)), 1, (0,255,0), thickness=-1)
-            print("x_camera: " + str(x))
-            print("y_camera: " + str(y))
-            print("z_camera: " + str(z))
+            # print("x_camera: " + str(x))
+            # print("y_camera: " + str(y))
+            # print("z_camera: " + str(z))
 
             self.x_pos= x
             self.y_pos= y

@@ -816,6 +816,7 @@
 /home/ros/master_ws/build/universal_robot/ur_kinematics/CMakeFiles/install/local.dir
 /home/ros/master_ws/build/universal_robot/ur_kinematics/CMakeFiles/ur30_moveit_plugin.dir
 /home/ros/master_ws/build/universal_robot/ur_kinematics/CMakeFiles/ur20_moveit_plugin.dir
+/home/ros/master_ws/build/robot_inverse_kinematics/CMakeFiles/install/local.dir
 /home/ros/master_ws/build/robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir
 /home/ros/master_ws/build/robot_inverse_kinematics/CMakeFiles/test.dir
 /home/ros/master_ws/build/robot_inverse_kinematics/CMakeFiles/test_ik_collision_objects.dir
@@ -823,13 +824,13 @@
 /home/ros/master_ws/build/robot_inverse_kinematics/CMakeFiles/install/strip.dir
 /home/ros/master_ws/build/robot_inverse_kinematics/CMakeFiles/pick_place_class.dir
 /home/ros/master_ws/build/robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir
+/home/ros/master_ws/build/robot_inverse_kinematics/CMakeFiles/pick_place_2D_camera.dir
 /home/ros/master_ws/build/robot_inverse_kinematics/CMakeFiles/test_ik.dir
 /home/ros/master_ws/build/robot_inverse_kinematics/CMakeFiles/edit_cache.dir
 /home/ros/master_ws/build/robot_inverse_kinematics/CMakeFiles/pick_place.dir
 /home/ros/master_ws/build/robot_inverse_kinematics/CMakeFiles/rebuild_cache.dir
 /home/ros/master_ws/build/robot_inverse_kinematics/CMakeFiles/list_install_components.dir
 /home/ros/master_ws/build/robot_inverse_kinematics/CMakeFiles/install.dir
-/home/ros/master_ws/build/robot_inverse_kinematics/CMakeFiles/install/local.dir
 /home/ros/master_ws/build/robotiq_description/CMakeFiles/install/strip.dir
 /home/ros/master_ws/build/robotiq_description/CMakeFiles/install/local.dir
 /home/ros/master_ws/build/robotiq_description/CMakeFiles/install.dir

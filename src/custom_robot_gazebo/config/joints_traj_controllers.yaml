@@ -14,7 +14,7 @@ cobot:
       link2__link3: {p: 1000,  d: 70, i: 100, i_clamp: 1}
       link3__link4: {p: 2000,  d: 70, i: 100, i_clamp: 1}
       link4__link5: {p: 2000,  d: 70, i: 150, i_clamp: 1}
-      link5__link6: {p: 1,  d: 0, i: 1, i_clamp: 1} 
+      link5__link6: {p: 100,  d: 0, i: 1, i_clamp: 1} 
     constraints:
       goal_time: 0.6
       stopped_velocity_tolerances: 0.05
@@ -35,7 +35,7 @@ cobot:
       - finger_right_joint
     gains:
       finger_right_joint:
-        p: 2500
+        p: 3500
         d: 10
         i: 10
         i_clamp: 1

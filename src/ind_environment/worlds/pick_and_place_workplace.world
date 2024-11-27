@@ -389,7 +389,7 @@
           <surface>
             <friction>
               <ode>
-                <mu>1</mu>
+                <mu>4</mu>
                 <mu2>1</mu2>
                 <fdir1>0 0 0</fdir1>
                 <slip1>0</slip1>

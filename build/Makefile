@@ -6590,6 +6590,19 @@ ur5_pick_place_class/fast:
 .PHONY : ur5_pick_place_class/fast
 
 #=============================================================================
+# Target rules for targets named pick_place_2D_camera
+
+# Build rule for target.
+pick_place_2D_camera: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pick_place_2D_camera
+.PHONY : pick_place_2D_camera
+
+# fast build rule for target.
+pick_place_2D_camera/fast:
+	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_2D_camera.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_2D_camera.dir/build
+.PHONY : pick_place_2D_camera/fast
+
+#=============================================================================
 # Target rules for targets named test_ik
 
 # Build rule for target.
@@ -7122,6 +7135,7 @@ help:
 	@echo "... test_module"
 	@echo "... pick_place_class"
 	@echo "... ur5_pick_place_class"
+	@echo "... pick_place_2D_camera"
 	@echo "... test_ik"
 	@echo "... pick_place"
 .PHONY : help

@@ -1311,6 +1311,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "robot_inverse_kinematics/CMakeFiles/test_module.dir/DependInfo.cmake"
   "robot_inverse_kinematics/CMakeFiles/pick_place_class.dir/DependInfo.cmake"
   "robot_inverse_kinematics/CMakeFiles/ur5_pick_place_class.dir/DependInfo.cmake"
+  "robot_inverse_kinematics/CMakeFiles/pick_place_2D_camera.dir/DependInfo.cmake"
   "robot_inverse_kinematics/CMakeFiles/test_ik.dir/DependInfo.cmake"
   "robot_inverse_kinematics/CMakeFiles/pick_place.dir/DependInfo.cmake"
   )

@@ -226,6 +226,10 @@ target_link_libraries(ur5_pick_place_class ${catkin_LIBRARIES})
 add_executable(test_module src/test_module.cpp)
 add_dependencies(test_module ${cobot_test_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(test_module ${catkin_LIBRARIES})
+
+add_executable(pick_place_2D_camera src/pick_place_2D_camera.cpp)
+add_dependencies(pick_place_2D_camera ${cobot_test_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(pick_place_2D_camera ${catkin_LIBRARIES})
 #############
 ## Testing ##
 #############

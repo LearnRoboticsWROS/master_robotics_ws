@@ -56,6 +56,18 @@ CMAKE_BINARY_DIR = /home/ros/master_ws/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
 # Special rule for the target test
 test:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
@@ -122,18 +134,6 @@ install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -243,6 +243,21 @@ ur5_pick_place_class/fast:
 .PHONY : ur5_pick_place_class/fast
 
 # Convenience name for target.
+robot_inverse_kinematics/CMakeFiles/pick_place_2D_camera.dir/rule:
+	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/pick_place_2D_camera.dir/rule
+.PHONY : robot_inverse_kinematics/CMakeFiles/pick_place_2D_camera.dir/rule
+
+# Convenience name for target.
+pick_place_2D_camera: robot_inverse_kinematics/CMakeFiles/pick_place_2D_camera.dir/rule
+
+.PHONY : pick_place_2D_camera
+
+# fast build rule for target.
+pick_place_2D_camera/fast:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_2D_camera.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_2D_camera.dir/build
+.PHONY : pick_place_2D_camera/fast
+
+# Convenience name for target.
 robot_inverse_kinematics/CMakeFiles/test_ik.dir/rule:
 	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/test_ik.dir/rule
 .PHONY : robot_inverse_kinematics/CMakeFiles/test_ik.dir/rule
@@ -298,6 +313,33 @@ src/pick_place.s: src/pick_place.cpp.s
 src/pick_place.cpp.s:
 	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place.dir/src/pick_place.cpp.s
 .PHONY : src/pick_place.cpp.s
+
+src/pick_place_2D_camera.o: src/pick_place_2D_camera.cpp.o
+
+.PHONY : src/pick_place_2D_camera.o
+
+# target to build an object file
+src/pick_place_2D_camera.cpp.o:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_2D_camera.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_2D_camera.dir/src/pick_place_2D_camera.cpp.o
+.PHONY : src/pick_place_2D_camera.cpp.o
+
+src/pick_place_2D_camera.i: src/pick_place_2D_camera.cpp.i
+
+.PHONY : src/pick_place_2D_camera.i
+
+# target to preprocess a source file
+src/pick_place_2D_camera.cpp.i:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_2D_camera.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_2D_camera.dir/src/pick_place_2D_camera.cpp.i
+.PHONY : src/pick_place_2D_camera.cpp.i
+
+src/pick_place_2D_camera.s: src/pick_place_2D_camera.cpp.s
+
+.PHONY : src/pick_place_2D_camera.s
+
+# target to generate assembly for a file
+src/pick_place_2D_camera.cpp.s:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_2D_camera.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_2D_camera.dir/src/pick_place_2D_camera.cpp.s
+.PHONY : src/pick_place_2D_camera.cpp.s
 
 src/pick_place_class.o: src/pick_place_class.cpp.o
 
@@ -416,6 +458,7 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... install/local"
 	@echo "... moveit_ros_manipulation_gencfg"
 	@echo "... test"
 	@echo "... test_ik_collision_objects"
@@ -423,16 +466,19 @@ help:
 	@echo "... install/strip"
 	@echo "... pick_place_class"
 	@echo "... ur5_pick_place_class"
+	@echo "... pick_place_2D_camera"
 	@echo "... test_ik"
 	@echo "... edit_cache"
 	@echo "... pick_place"
 	@echo "... rebuild_cache"
 	@echo "... list_install_components"
 	@echo "... install"
-	@echo "... install/local"
 	@echo "... src/pick_place.o"
 	@echo "... src/pick_place.i"
 	@echo "... src/pick_place.s"
+	@echo "... src/pick_place_2D_camera.o"
+	@echo "... src/pick_place_2D_camera.i"
+	@echo "... src/pick_place_2D_camera.s"
 	@echo "... src/pick_place_class.o"
 	@echo "... src/pick_place_class.i"
 	@echo "... src/pick_place_class.s"
