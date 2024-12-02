@@ -230,6 +230,10 @@ target_link_libraries(test_module ${catkin_LIBRARIES})
 add_executable(pick_place_2D_camera src/pick_place_2D_camera.cpp)
 add_dependencies(pick_place_2D_camera ${cobot_test_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(pick_place_2D_camera ${catkin_LIBRARIES})
+
+add_executable(pick_place_grasp_2D_camera src/pick_place_grasp_2D_camera.cpp)
+add_dependencies(pick_place_grasp_2D_camera ${cobot_test_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(pick_place_grasp_2D_camera ${catkin_LIBRARIES})
 #############
 ## Testing ##
 #############

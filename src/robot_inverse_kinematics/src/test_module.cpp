@@ -4,6 +4,7 @@
 #include <moveit/move_group_interface/move_group_interface.h>
 // TF2
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <frame_transform/FrameTransform.h>
 
 // tau = 1 rotation in radiants
 const double tau = 2 * M_PI;
@@ -19,6 +20,10 @@ void openGripper(trajectory_msgs::JointTrajectory& posture)
     posture.points[0].positions.resize(1);
     posture.points[0].positions[0] = 0;
     posture.points[0].time_from_start = ros::Duration(0.5);
+
+    moveit::planning_interface::MoveGroupInterface gripper("gripper");
+
+    gripper.clearPathConstraints();
 
 
 }
@@ -36,12 +41,16 @@ void closedGripper(trajectory_msgs::JointTrajectory& posture)
     posture.points[0].positions[0] = 0.04;
     posture.points[0].time_from_start = ros::Duration(0.5);
 
+    moveit::planning_interface::MoveGroupInterface gripper("gripper");
+
+    gripper.clearPathConstraints();
+
     
 
 
 }
 
-void pick(moveit::planning_interface::MoveGroupInterface& move_group)
+void pick_object(moveit::planning_interface::MoveGroupInterface& move_group)
 {
     std::vector<moveit_msgs::Grasp> grasps;
     grasps.resize(1);
@@ -49,48 +58,45 @@ void pick(moveit::planning_interface::MoveGroupInterface& move_group)
     // Grasp pose
     grasps[0].grasp_pose.header.frame_id = "base_link";
     tf2::Quaternion orientation;
-    // orientation.setRPY(-tau/4, 0, tau/2);
-    // grasps[0].grasp_pose.pose.orientation = tf2::toMsg(orientation);
-    // grasps[0].grasp_pose.pose.position.x = 0.5;
-    // grasps[0].grasp_pose.pose.position.y = 0;
-    // grasps[0].grasp_pose.pose.position.z = 0.3;
-
-    // // Pre-grasp approach
-    // grasps[0].pre_grasp_approach.direction.header.frame_id = "base_link";
-    // grasps[0].pre_grasp_approach.direction.vector.y = -1.0;
-    // grasps[0].pre_grasp_approach.min_distance = 0.02;
-    // grasps[0].pre_grasp_approach.desired_distance = 0.025;
-
-    // // Post-grasp retreat
-    // grasps[0].post_grasp_retreat.direction.header.frame_id = "base_link";
-    // //Direction is set as positive z axis 
-    // grasps[0].post_grasp_retreat.direction.vector.z = 1.0;
-    // grasps[0].post_grasp_retreat.min_distance = 0.05;
-    // grasps[0].post_grasp_retreat.desired_distance = 0.25;
-
-
     orientation.setRPY(-tau/4, 0, tau/2);
     grasps[0].grasp_pose.pose.orientation = tf2::toMsg(orientation);
-    grasps[0].grasp_pose.pose.position.x = 0.5;
-    grasps[0].grasp_pose.pose.position.y = 0;
-    grasps[0].grasp_pose.pose.position.z = 0.3;
+
+    ros::NodeHandle nh;
+    ros::ServiceClient client_picking_pose;
+    // Initialize the service
+    frame_transform::FrameTransform service;
+    client_picking_pose = nh.serviceClient<frame_transform::FrameTransform>("/get_position_base_link");
+
+    const double eef_offset = 0.1;
+
+    service.request.from_camera_to_base_link = true;
+    // grasps[0].grasp_pose.pose.position.x = 0.6;
+    // grasps[0].grasp_pose.pose.position.y = 0.1;
+    // grasps[0].grasp_pose.pose.position.z = 0.3;
+    if (client_picking_pose.call(service))
+    {
+        grasps[0].grasp_pose.pose.position.x = service.response.x_base_link_frame;
+        grasps[0].grasp_pose.pose.position.y = service.response.y_base_link_frame + eef_offset;
+        grasps[0].grasp_pose.pose.position.z = service.response.z_base_link_frame;
+    }
+    else
+    {
+        ROS_WARN("service failed");
+    }
 
     // Pre-grasp approach
     grasps[0].pre_grasp_approach.direction.header.frame_id = "base_link";
     // Direction is set as positive x axis
     grasps[0].pre_grasp_approach.direction.vector.y = -1.0;
-    grasps[0].pre_grasp_approach.min_distance = 0.095;
-    grasps[0].pre_grasp_approach.desired_distance = 0.115;
+    grasps[0].pre_grasp_approach.min_distance = 0.02;
+    grasps[0].pre_grasp_approach.desired_distance = 0.025;
 
     // Post-grasp retreat
     grasps[0].post_grasp_retreat.direction.header.frame_id = "base_link";
     //Direction is set as positive z axis 
     grasps[0].post_grasp_retreat.direction.vector.z = 1.0;
     grasps[0].post_grasp_retreat.min_distance = 0.05;
-    grasps[0].post_grasp_retreat.desired_distance = 0.25;
-
-
-
+    grasps[0].post_grasp_retreat.desired_distance = 0.1;
 
     // we need to open the gripper. We will define a function for that
     openGripper(grasps[0].pre_grasp_posture);
@@ -100,7 +106,8 @@ void pick(moveit::planning_interface::MoveGroupInterface& move_group)
 
     // Set support surface as table 1
     move_group.setSupportSurfaceName("table1");
-    move_group.setPoseTarget(grasps[0].grasp_pose, "picking_point");
+
+
 
     // Call pick to pick up the object using the grasps given
     move_group.pick("object", grasps);
@@ -108,53 +115,29 @@ void pick(moveit::planning_interface::MoveGroupInterface& move_group)
     
 }
 
-void place(moveit::planning_interface::MoveGroupInterface& group)
+void place_object(moveit::planning_interface::MoveGroupInterface& group)
 {
     std::vector<moveit_msgs::PlaceLocation> place_location;
     place_location.resize(1);
 
     // Setting place location pose
+
     place_location[0].place_pose.header.frame_id = "base_link";
     tf2::Quaternion orientation;
 
-    // orientation.setRPY(-tau/4, 0, -tau / 4);  // A quarter turn about the z-axis
-    // place_location[0].place_pose.pose.orientation = tf2::toMsg(orientation);
-    
-
-    // place_location[0].place_pose.pose.position.x = 0;
-    // place_location[0].place_pose.pose.position.y = 0.5;
-    // place_location[0].place_pose.pose.position.z = 0.3;
-
-    // // Setting pre-place approach
-    // place_location[0].pre_place_approach.direction.header.frame_id = "base_link";
-    // // Direction is set as negative z axis
-    // place_location[0].pre_place_approach.direction.vector.z = -1.0;
-    // place_location[0].pre_place_approach.min_distance = 0.095;
-    // place_location[0].pre_place_approach.desired_distance = 0.115;
-
-    
-
-    // // Setting post-grasp retreat
-    // place_location[0].post_place_retreat.direction.header.frame_id = "base_link";
-    // // Direction is set as negative y axis
-    // place_location[0].post_place_retreat.direction.vector.x = -1.0;
-    // place_location[0].post_place_retreat.min_distance = 0.1;
-    // place_location[0].post_place_retreat.desired_distance = 0.25;
-
-    orientation.setRPY(0, 0, tau / 4);  // A quarter turn about the z-axis
+    orientation.setRPY(-tau/2, 0, -tau / 4);  // A quarter turn about the z-axis
     place_location[0].place_pose.pose.orientation = tf2::toMsg(orientation);
     
     place_location[0].place_pose.pose.position.x = 0;
-    place_location[0].place_pose.pose.position.y = 0.8;
-    //place_location[0].place_pose.pose.position.z = 0.5;
+    place_location[0].place_pose.pose.position.y = 0.6;
     place_location[0].place_pose.pose.position.z = 0.3;
 
     // Setting pre-place approach
     place_location[0].pre_place_approach.direction.header.frame_id = "base_link";
     // Direction is set as negative z axis
     place_location[0].pre_place_approach.direction.vector.z = -1.0;
-    place_location[0].pre_place_approach.min_distance = 0.095;
-    place_location[0].pre_place_approach.desired_distance = 0.115;
+    place_location[0].pre_place_approach.min_distance = 0.01;
+    place_location[0].pre_place_approach.desired_distance = 0.015;
 
     
 
@@ -162,22 +145,8 @@ void place(moveit::planning_interface::MoveGroupInterface& group)
     place_location[0].post_place_retreat.direction.header.frame_id = "base_link";
     // Direction is set as negative y axis
     place_location[0].post_place_retreat.direction.vector.x = -1.0;
-    place_location[0].post_place_retreat.min_distance = 0.1;
-    place_location[0].post_place_retreat.desired_distance = 0.25;
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
+    place_location[0].post_place_retreat.min_distance = 0.05;
+    place_location[0].post_place_retreat.desired_distance = 0.08;
 
 
 
@@ -185,7 +154,7 @@ void place(moveit::planning_interface::MoveGroupInterface& group)
 
     // Set support surface as table 2
     group.setSupportSurfaceName("table2");
-    group.setPoseTarget(place_location[0].place_pose, "picking_point");
+    //group.setPoseTarget(place_location[0].place_pose, "picking_point");
 
     
     // Call place to palce the object using the place location given
@@ -197,7 +166,7 @@ void place(moveit::planning_interface::MoveGroupInterface& group)
 void addCollisionObject(moveit::planning_interface::PlanningSceneInterface& planning_scene_interface)
 {
     std::vector<moveit_msgs::CollisionObject> collision_objects;
-    collision_objects.resize(3);
+    collision_objects.resize(4);
 
     // Add the first table
     collision_objects[0].id = "table1";
@@ -212,7 +181,7 @@ void addCollisionObject(moveit::planning_interface::PlanningSceneInterface& plan
     collision_objects[0].primitives[0].dimensions[2] = 1;
     // pose of table 1
     collision_objects[0].primitive_poses.resize(1);
-    collision_objects[0].primitive_poses[0].position.x = 1.75;
+    collision_objects[0].primitive_poses[0].position.x = 0.8;
     collision_objects[0].primitive_poses[0].position.y = 0;
     collision_objects[0].primitive_poses[0].position.z = -0.3;
     collision_objects[0].primitive_poses[0].orientation.w = 1.0;
@@ -234,7 +203,7 @@ void addCollisionObject(moveit::planning_interface::PlanningSceneInterface& plan
     // pose of table 2
     collision_objects[1].primitive_poses.resize(1);
     collision_objects[1].primitive_poses[0].position.x = 0;
-    collision_objects[1].primitive_poses[0].position.y = 1.5;
+    collision_objects[1].primitive_poses[0].position.y = 0.8;
     collision_objects[1].primitive_poses[0].position.z = -0.3;
     collision_objects[1].primitive_poses[0].orientation.w = 1.0;
     // Add tabe 2 to the scene
@@ -263,28 +232,42 @@ void addCollisionObject(moveit::planning_interface::PlanningSceneInterface& plan
 
 
     // Add the object to be picked
-    // collision_objects[3].id = "object";
-    // collision_objects[3].header.frame_id = "base_link";
+    collision_objects[3].id = "object";
+    collision_objects[3].header.frame_id = "base_link";
 
-    // // Define primitive dimension, position of the object
-    // collision_objects[3].primitives.resize(1);
-    // collision_objects[3].primitives[0].type = collision_objects[0].primitives[0].BOX;
-    // collision_objects[3].primitives[0].dimensions.resize(3);
-    // collision_objects[3].primitives[0].dimensions[0] = 0.02;
-    // collision_objects[3].primitives[0].dimensions[1] = 0.02;
-    // collision_objects[3].primitives[0].dimensions[2] = 0.2;
-    // // pose of object
-    // collision_objects[3].primitive_poses.resize(1);
-    // collision_objects[3].primitive_poses[0].position.x = 0.5;
-    // collision_objects[3].primitive_poses[0].position.y = 0;
-    // collision_objects[3].primitive_poses[0].position.z = 0.3;
-    // collision_objects[3].primitive_poses[0].orientation.w = 1.0;
-    // // Add tabe 2 to the object
-    // collision_objects[3].operation = collision_objects[3].ADD;
+    // Define primitive dimension, position of the object
+    collision_objects[3].primitives.resize(1);
+    collision_objects[3].primitives[0].type = collision_objects[0].primitives[0].BOX;
+    collision_objects[3].primitives[0].dimensions.resize(3);
+    collision_objects[3].primitives[0].dimensions[0] = 0.02;
+    collision_objects[3].primitives[0].dimensions[1] = 0.02;
+    collision_objects[3].primitives[0].dimensions[2] = 0.2;
+    // pose of object
+    collision_objects[3].primitive_poses.resize(1);
+    collision_objects[3].primitive_poses[0].position.x = 0.6543;
+    collision_objects[3].primitive_poses[0].position.y = -0.033;
+    collision_objects[3].primitive_poses[0].position.z = 0.3;
+    collision_objects[3].primitive_poses[0].orientation.w = 1.0;
+    // Add tabe 2 to the object
+    collision_objects[3].operation = collision_objects[3].ADD;
 
     planning_scene_interface.applyCollisionObjects(collision_objects);
 
 }
+
+void setGripperConstraints(moveit::planning_interface::MoveGroupInterface& gripper)
+    {
+        moveit_msgs::Constraints gripper_constraints;
+        moveit_msgs::JointConstraint joint_constraint;
+        joint_constraint.joint_name = "finger_right_joint";
+        joint_constraint.position = 0.04;
+        joint_constraint.tolerance_above = 0.001;
+        joint_constraint.tolerance_below = 0.001;
+        joint_constraint.weight = 1.0;
+
+        gripper_constraints.joint_constraints.push_back(joint_constraint);
+        gripper.setPathConstraints(gripper_constraints);
+    }
 
 int main(int argc, char** argv)
 {
@@ -297,6 +280,7 @@ int main(int argc, char** argv)
     ros::WallDuration(1.0).sleep();
     moveit::planning_interface::PlanningSceneInterface planning_scene_interface;
     moveit::planning_interface::MoveGroupInterface group("arm");
+    moveit::planning_interface::MoveGroupInterface gripper("gripper");
     group.setPlanningTime(45.0);
 
     // Put the object in the scene
@@ -304,14 +288,18 @@ int main(int argc, char** argv)
 
     // Wait for initialization
     ros::WallDuration(1.0).sleep();
+    setGripperConstraints(gripper);
+    
 
     // Pick the object
-    pick(group);
+    pick_object(group);
+    
 
     ros::WallDuration(1.0).sleep();
 
+    setGripperConstraints(gripper);
     // Place the object
-    place(group);
+    place_object(group);
 
     ros::waitForShutdown();
     return 0;
