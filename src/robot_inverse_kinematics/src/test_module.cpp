@@ -96,7 +96,7 @@ void pick_object(moveit::planning_interface::MoveGroupInterface& move_group)
         collision_object[0].primitive_poses[0].position.y = y_pose;
         collision_object[0].primitive_poses[0].position.z = z_pose;
 
-        collision_object[0].operation = moveit_msgs::CollisionObject::MOVE;
+        collision_object[0].operation = moveit_msgs::CollisionObject::ADD;
         planning_scene_interface.applyCollisionObjects(collision_object);
 
         grasps[0].grasp_pose.pose.position.x = x_pose;
@@ -156,7 +156,7 @@ void place_object(moveit::planning_interface::MoveGroupInterface& group)
     
     place_location[0].place_pose.pose.position.x = 0;
     place_location[0].place_pose.pose.position.y = 0.6;
-    place_location[0].place_pose.pose.position.z = 0.3;
+    place_location[0].place_pose.pose.position.z = 0.5;
 
     // Setting pre-place approach
     place_location[0].pre_place_approach.direction.header.frame_id = "base_link";
@@ -186,13 +186,21 @@ void place_object(moveit::planning_interface::MoveGroupInterface& group)
     // Call place to palce the object using the place location given
     group.place("object", place_location);
 
+    ROS_INFO_STREAM("x = "
+                    << 
+                    place_location[0].place_pose.pose.position.x 
+                    << ", y = " << 
+                    place_location[0].place_pose.pose.position.y 
+                    << ", z = " << 
+                    place_location[0].place_pose.pose.position.z);
+
 
 }
 
 void addCollisionObject(moveit::planning_interface::PlanningSceneInterface& planning_scene_interface)
 {
     std::vector<moveit_msgs::CollisionObject> collision_objects;
-    collision_objects.resize(4);
+    collision_objects.resize(3);
 
     // Add the first table
     collision_objects[0].id = "table1";
@@ -258,24 +266,24 @@ void addCollisionObject(moveit::planning_interface::PlanningSceneInterface& plan
 
 
     // Add the object to be picked
-    collision_objects[3].id = "object";
-    collision_objects[3].header.frame_id = "base_link";
+    // collision_objects[3].id = "object";
+    // collision_objects[3].header.frame_id = "base_link";
 
-    // Define primitive dimension, position of the object
-    collision_objects[3].primitives.resize(1);
-    collision_objects[3].primitives[0].type = collision_objects[0].primitives[0].BOX;
-    collision_objects[3].primitives[0].dimensions.resize(3);
-    collision_objects[3].primitives[0].dimensions[0] = 0.02;
-    collision_objects[3].primitives[0].dimensions[1] = 0.02;
-    collision_objects[3].primitives[0].dimensions[2] = 0.2;
-    // pose of object
-    collision_objects[3].primitive_poses.resize(1);
-    collision_objects[3].primitive_poses[0].position.x = 3;
-    collision_objects[3].primitive_poses[0].position.y = 3;
-    collision_objects[3].primitive_poses[0].position.z = 0.3;
-    collision_objects[3].primitive_poses[0].orientation.w = 1.0;
-    // Add tabe 2 to the object
-    collision_objects[3].operation = collision_objects[3].ADD;
+    // // Define primitive dimension, position of the object
+    // collision_objects[3].primitives.resize(1);
+    // collision_objects[3].primitives[0].type = collision_objects[0].primitives[0].BOX;
+    // collision_objects[3].primitives[0].dimensions.resize(3);
+    // collision_objects[3].primitives[0].dimensions[0] = 0.02;
+    // collision_objects[3].primitives[0].dimensions[1] = 0.02;
+    // collision_objects[3].primitives[0].dimensions[2] = 0.2;
+    // // pose of object
+    // collision_objects[3].primitive_poses.resize(1);
+    // collision_objects[3].primitive_poses[0].position.x = 0;
+    // collision_objects[3].primitive_poses[0].position.y = 0.6;
+    // collision_objects[3].primitive_poses[0].position.z = 0.3;
+    // collision_objects[3].primitive_poses[0].orientation.w = 1.0;
+    // // Add tabe 2 to the object
+    // collision_objects[3].operation = collision_objects[3].ADD;
 
     planning_scene_interface.applyCollisionObjects(collision_objects);
 
