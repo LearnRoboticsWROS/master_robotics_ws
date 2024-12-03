@@ -73,16 +73,42 @@ void pick_object(moveit::planning_interface::MoveGroupInterface& move_group)
     // grasps[0].grasp_pose.pose.position.x = 0.6;
     // grasps[0].grasp_pose.pose.position.y = 0.1;
     // grasps[0].grasp_pose.pose.position.z = 0.3;
+    
     if (client_picking_pose.call(service))
     {
-        grasps[0].grasp_pose.pose.position.x = service.response.x_base_link_frame;
-        grasps[0].grasp_pose.pose.position.y = service.response.y_base_link_frame + eef_offset;
-        grasps[0].grasp_pose.pose.position.z = service.response.z_base_link_frame;
+        double x_pose = service.response.x_base_link_frame;
+        double y_pose = service.response.y_base_link_frame;
+        double z_pose = service.response.z_base_link_frame;
+    
+        // add collision object to the position detected
+        moveit::planning_interface::PlanningSceneInterface planning_scene_interface;
+        std::vector<moveit_msgs::CollisionObject> collision_object;
+        //moveit_msgs::CollisionObject collision_object;
+        collision_object.resize(1);
+        collision_object[0].id = "object";
+        collision_object[0].header.frame_id = "base_link";
+        collision_object[0].primitives.resize(1);
+        collision_object[0].primitives[0].type = shape_msgs::SolidPrimitive::BOX;
+        collision_object[0].primitives[0].dimensions = {0.02, 0.02, 0.2};
+
+        collision_object[0].primitive_poses.resize(1);
+        collision_object[0].primitive_poses[0].position.x = x_pose;
+        collision_object[0].primitive_poses[0].position.y = y_pose;
+        collision_object[0].primitive_poses[0].position.z = z_pose;
+
+        collision_object[0].operation = moveit_msgs::CollisionObject::ADD;
+        planning_scene_interface.applyCollisionObjects(collision_object);
+
+        grasps[0].grasp_pose.pose.position.x = x_pose;
+        grasps[0].grasp_pose.pose.position.y = y_pose + eef_offset;
+        grasps[0].grasp_pose.pose.position.z = z_pose;
     }
+
     else
     {
         ROS_WARN("service failed");
     }
+    
 
     // Pre-grasp approach
     grasps[0].pre_grasp_approach.direction.header.frame_id = "base_link";
@@ -166,7 +192,7 @@ void place_object(moveit::planning_interface::MoveGroupInterface& group)
 void addCollisionObject(moveit::planning_interface::PlanningSceneInterface& planning_scene_interface)
 {
     std::vector<moveit_msgs::CollisionObject> collision_objects;
-    collision_objects.resize(4);
+    collision_objects.resize(3);
 
     // Add the first table
     collision_objects[0].id = "table1";
@@ -232,24 +258,24 @@ void addCollisionObject(moveit::planning_interface::PlanningSceneInterface& plan
 
 
     // Add the object to be picked
-    collision_objects[3].id = "object";
-    collision_objects[3].header.frame_id = "base_link";
+    // collision_objects[3].id = "object";
+    // collision_objects[3].header.frame_id = "base_link";
 
-    // Define primitive dimension, position of the object
-    collision_objects[3].primitives.resize(1);
-    collision_objects[3].primitives[0].type = collision_objects[0].primitives[0].BOX;
-    collision_objects[3].primitives[0].dimensions.resize(3);
-    collision_objects[3].primitives[0].dimensions[0] = 0.02;
-    collision_objects[3].primitives[0].dimensions[1] = 0.02;
-    collision_objects[3].primitives[0].dimensions[2] = 0.2;
-    // pose of object
-    collision_objects[3].primitive_poses.resize(1);
-    collision_objects[3].primitive_poses[0].position.x = 0.6543;
-    collision_objects[3].primitive_poses[0].position.y = -0.033;
-    collision_objects[3].primitive_poses[0].position.z = 0.3;
-    collision_objects[3].primitive_poses[0].orientation.w = 1.0;
-    // Add tabe 2 to the object
-    collision_objects[3].operation = collision_objects[3].ADD;
+    // // Define primitive dimension, position of the object
+    // collision_objects[3].primitives.resize(1);
+    // collision_objects[3].primitives[0].type = collision_objects[0].primitives[0].BOX;
+    // collision_objects[3].primitives[0].dimensions.resize(3);
+    // collision_objects[3].primitives[0].dimensions[0] = 0.02;
+    // collision_objects[3].primitives[0].dimensions[1] = 0.02;
+    // collision_objects[3].primitives[0].dimensions[2] = 0.2;
+    // // pose of object
+    // collision_objects[3].primitive_poses.resize(1);
+    // collision_objects[3].primitive_poses[0].position.x = 0.6543;
+    // collision_objects[3].primitive_poses[0].position.y = -0.033;
+    // collision_objects[3].primitive_poses[0].position.z = 0.3;
+    // collision_objects[3].primitive_poses[0].orientation.w = 1.0;
+    // // Add tabe 2 to the object
+    // collision_objects[3].operation = collision_objects[3].ADD;
 
     planning_scene_interface.applyCollisionObjects(collision_objects);
 
@@ -289,18 +315,12 @@ int main(int argc, char** argv)
     // Wait for initialization
     ros::WallDuration(1.0).sleep();
     setGripperConstraints(gripper);
-    
-
     // Pick the object
     pick_object(group);
-    
-
     ros::WallDuration(1.0).sleep();
-
     setGripperConstraints(gripper);
     // Place the object
     place_object(group);
-
     ros::waitForShutdown();
     return 0;
 
