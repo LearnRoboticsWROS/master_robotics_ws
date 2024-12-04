@@ -37,7 +37,8 @@ public:
         tf2::Quaternion orientation;
         orientation.setRPY(tau/2, -tau/4, 0);
         pick_position.orientation = tf2::toMsg(orientation);
-        pick_position.position.x = 0;
+        const double eef_offset = 0.2;
+        pick_position.position.x = 0 - eef_offset;
         pick_position.position.y = 0.5;
         pick_position.position.z = 0.3;
         move_group.setPoseTarget(pick_position, "tool0");
