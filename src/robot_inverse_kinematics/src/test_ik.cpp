@@ -17,8 +17,8 @@ int main(int argc, char **argv)
     sleep(2.0);
 
     // instantiate the moveit object MoveGroupInterface PlanningScene Interface
-    moveit::planning_interface::MoveGroupInterface group("arm");
-    // moveit::planning_interface::MoveGroupInterface group("manipulator");
+    // moveit::planning_interface::MoveGroupInterface group("arm");
+    moveit::planning_interface::MoveGroupInterface group("manipulator");
     moveit::planning_interface::PlanningSceneInterface planning_scene_interface;
 
     ros::Publisher display_publisher= nh.advertise<moveit_msgs::DisplayTrajectory>("/move_group/display_planned_path", 1, true);
@@ -32,15 +32,15 @@ int main(int argc, char **argv)
     geometry_msgs::Pose target_pose1;
     
     tf2::Quaternion orientation;
-    orientation.setRPY(0, 0, 0);
+    orientation.setRPY(tau/2, -tau/4, 0);
     target_pose1.orientation = tf2::toMsg(orientation);
-    target_pose1.position.x = 0.5;
+    target_pose1.position.x = 0;
     target_pose1.position.y = 0.5;
-    target_pose1.position.z = 0.5;
+    target_pose1.position.z = 0.3;
     
 
-    group.setPoseTarget(target_pose1, "picking_point");
-    // group.setPoseTarget(target_pose1, "tool0");
+    // group.setPoseTarget(target_pose1, "picking_point");
+    group.setPoseTarget(target_pose1, "tool0");
 
     // visualize the planning
     moveit::planning_interface::MoveGroupInterface::Plan my_plan;
