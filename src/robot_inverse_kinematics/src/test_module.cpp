@@ -56,7 +56,7 @@ public:
     void close_gripper(moveit::planning_interface::MoveGroupInterface& gripper)
     {
         gripper.setMaxVelocityScalingFactor(0.5);
-        gripper.setJointValueTarget("robotiq_85_left_knuckle_joint", 0.1);
+        gripper.setJointValueTarget("robotiq_85_left_knuckle_joint", 0.2);
         gripper.move();
 
         attachObjectToGripper("red_cube::red_cuboid", "ur5::wrist_3_link");
@@ -84,7 +84,7 @@ public:
         const double eef_offset = 0.2;
         pick_position.position.x = 0 - eef_offset;
         pick_position.position.y = 0.5;
-        pick_position.position.z = 0.35;
+        pick_position.position.z = 0.3;
         move_group.setPoseTarget(pick_position, "tool0");
         move_group.move();
 
