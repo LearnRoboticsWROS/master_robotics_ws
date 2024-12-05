@@ -14,8 +14,8 @@
     <param name="robot_description_cube" command = "$(find xacro)/xacro --inorder $(find custom_robot_description)/urdf/red_cube.urdf" />
 
     <!-- Set teh position in empty world-->
-    <arg name="x_cube" default="0.642" />
-    <arg name="y_cube" default="-0.031" />
+    <arg name="x_cube" default="0.5" />
+    <arg name="y_cube" default="0.05" />
     <arg name="z_cube" default="1.1" />
 
 

@@ -3,6 +3,12 @@
 #include <moveit/move_group_interface/move_group_interface.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include <frame_transform/FrameTransform.h>
+#include <gazebo_msgs/SetLinkState.h>
+#include <gazebo_msgs/GetLinkState.h>
+#include <gazebo_msgs/LinkState.h>
+#include <gazebo_msgs/SpawnModel.h>
+#include <gazebo_msgs/DeleteModel.h>
+#include <std_srvs/Empty.h>
 
 const double tau = 2 * M_PI;
 
@@ -13,20 +19,58 @@ public:
     PickAndPlace()
     {
         client_picking_pose = nh.serviceClient<frame_transform::FrameTransform>("/get_position_base_link");
+
+        set_link_state_client = nh.serviceClient<gazebo_msgs::SetLinkState>("/gazebo/set_link_state");
+        get_link_state_client = nh.serviceClient<gazebo_msgs::GetLinkState>("/gazebo/get_link_state");
+        attach_timer = nh.createTimer(ros::Duration(0.01), &PickAndPlace::updateAttachment, this); // Timer a 10 ms
+    }
+
+    
+    
+
+   void attachObjectToGripper(const std::string& object_name, const std::string& wrist_link) 
+   {
+        attached_object_name = object_name;
+        attached_reference_frame = wrist_link;
+        is_attached = true; // Attiva l'aggancio
+
+        // Ottieni la pose dell'oggetto rispetto al frame del polso
+        gazebo_msgs::GetLinkState get_link_state_srv;
+        get_link_state_srv.request.link_name = object_name;
+        get_link_state_srv.request.reference_frame = wrist_link;
+
+        if (get_link_state_client.call(get_link_state_srv)) {
+            relative_pose = get_link_state_srv.response.link_state.pose;
+        } else {
+            ROS_ERROR("Failed to get the relative pose between object and wrist link.");
+            is_attached = false;
+        }
+    }
+
+    void detachObject() 
+    {
+        is_attached = false; // Disattiva l'aggancio
     }
 
 
     void close_gripper(moveit::planning_interface::MoveGroupInterface& gripper)
     {
         gripper.setMaxVelocityScalingFactor(0.5);
-        gripper.setJointValueTarget("robotiq_85_left_knuckle_joint", 0.7);
+        gripper.setJointValueTarget("robotiq_85_left_knuckle_joint", 0.1);
         gripper.move();
+
+        attachObjectToGripper("red_cube::red_cuboid", "ur5::wrist_3_link");
+
+        
     }
 
     void open_gripper(moveit::planning_interface::MoveGroupInterface& gripper)
     {
         gripper.setJointValueTarget("robotiq_85_left_knuckle_joint", 0.0);
         gripper.move();
+
+        detachObject();
+
     }
 
     
@@ -40,7 +84,7 @@ public:
         const double eef_offset = 0.2;
         pick_position.position.x = 0 - eef_offset;
         pick_position.position.y = 0.5;
-        pick_position.position.z = 0.3;
+        pick_position.position.z = 0.35;
         move_group.setPoseTarget(pick_position, "tool0");
         move_group.move();
 
@@ -102,6 +146,41 @@ private:
         ros::ServiceClient client_picking_pose;
         // Initialize the service
         frame_transform::FrameTransform service;
+        ros::ServiceClient set_link_state_client;
+        ros::ServiceClient get_link_state_client;
+
+        ros::Timer attach_timer;
+
+        std::string attached_object_name;
+        std::string attached_reference_frame;
+        bool is_attached = false;
+
+        geometry_msgs::Pose relative_pose;
+
+        void updateAttachment(const ros::TimerEvent&) {
+            if (!is_attached || attached_object_name.empty() || attached_reference_frame.empty()) {
+                return; // Non fare nulla se non c'è aggancio
+            }
+
+            gazebo_msgs::SetLinkState set_link_state_srv;
+            gazebo_msgs::LinkState link_state;
+
+            // Mantieni la pose relativa
+            link_state.link_name = attached_object_name;
+            link_state.reference_frame = attached_reference_frame;
+            link_state.pose = relative_pose; // Usa la pose relativa
+            link_state.twist.linear.x = 0.0;
+            link_state.twist.linear.y = 0.0;
+            link_state.twist.linear.z = 0.0;
+            link_state.twist.angular.x = 0.0;
+            link_state.twist.angular.y = 0.0;
+            link_state.twist.angular.z = 0.0;
+
+            set_link_state_srv.request.link_state = link_state;
+            if (!set_link_state_client.call(set_link_state_srv)) {
+                ROS_ERROR_THROTTLE(1.0, "Failed to update link attachment.");
+            }
+        }
 
     
 };

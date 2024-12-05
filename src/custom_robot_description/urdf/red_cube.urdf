@@ -1,6 +1,6 @@
 <?xml version = "1.0"?>
 
-<robot name="custom_cube" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="red_cuboid" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <link name="red_cuboid">
         <visual>
@@ -45,5 +45,19 @@
             </contact>
         </surface>
   </gazebo>
+  <gazebo reference="red_cuboid" >
+    <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
+        <arm>
+            <arm_name>red_cube</arm_name>
+            <palm_link>red_cuboid</palm_link>
+        </arm>
+        <forces_angle_tolerance>100</forces_angle_tolerance>
+        <update_rate>4</update_rate>
+        <grip_count_threshold>4</grip_count_threshold>
+        <max_grip_count>8</max_grip_count>
+        <release_tolerance>0.005</release_tolerance>
+        <disable_collisions_on_attach>false</disable_collisions_on_attach>
+    </plugin>
+   </gazebo>
 
 </robot>
