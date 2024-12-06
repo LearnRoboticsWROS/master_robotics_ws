@@ -34,7 +34,7 @@ cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered(new pcl::PointCloud<pcl::PointXYZ>);
     pcl::VoxelGrid<pcl::PointXYZ> voxel_filter;
     voxel_filter.setInputCloud(cloud);
-    voxel_filter.setLeafSize(0.0005,0.0005,0.0005); // PLAY 
+    voxel_filter.setLeafSize(0.005,0.005,0.005); // PLAY 
     voxel_filter.filter(*cloud_filtered);
 
 
@@ -70,9 +70,9 @@ cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
     // pass.setFilterLimits(0.0, 0.2); // PLAY --> based on the x direction, check the pcd file
     // pass.filter(*cloud_filtered);
 
-    // pass.setFilterFieldName("y");
-    // pass.setFilterLimits(-0.2, 0); // PLAY --> based on the y direction, check the pcd file
-    // pass.filter(*cloud_filtered);
+    pass.setFilterFieldName("y");
+    pass.setFilterLimits(-0.3, -0.1); // PLAY --> based on the y direction, check the pcd file
+    pass.filter(*cloud_filtered);
 
     // Remove outliers using a statistical outlier removal filter
     pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
@@ -157,9 +157,9 @@ int main(int argc, char** argv)
     ros::NodeHandle nh;
     // Create a subscriber
     // Create a ROS subscriber for the input point cloud
-    ros::Subscriber sub = nh.subscribe<sensor_msgs::PointCloud2> ("/rgbd_camera/depth/points", 1, cloud_cb);
+    ros::Subscriber sub = nh.subscribe<sensor_msgs::PointCloud2> ("/rgbd_camera/depth/points", 10, cloud_cb);
     pub = nh.advertise<sensor_msgs::PointCloud2>("filtered", 1);
-    pub_cam = nh.advertise<geometry_msgs::Point>("object_position_camera_frame", 1);
+    pub_cam = nh.advertise<geometry_msgs::Point>("object_position_camera_frame", 10);
     ros::spin();
     return (0);
 }

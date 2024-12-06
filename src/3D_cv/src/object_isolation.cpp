@@ -55,57 +55,57 @@ void isolateCylinder(const std::string& input_pcd, const std::string& output_pcd
     pass.setFilterLimits(0.5, 1.05); // PLAY --> based on the z direction, check the pcd file
     pass.filter(*cloud_filtered);
 
-    pass.setFilterFieldName("x");
-    pass.setFilterLimits(0.0, 0.2); // PLAY --> based on the x direction, check the pcd file
-    pass.filter(*cloud_filtered);
+    // pass.setFilterFieldName("x");
+    // pass.setFilterLimits(0.0, 0.2); // PLAY --> based on the x direction, check the pcd file
+    // pass.filter(*cloud_filtered);
 
     pass.setFilterFieldName("y");
-    pass.setFilterLimits(-0.2, 0); // PLAY --> based on the y direction, check the pcd file
+    pass.setFilterLimits(-0.3, -0.1); // PLAY --> based on the y direction, check the pcd file
     pass.filter(*cloud_filtered);
 
-    // Remove outliers using a statistical outlier removal filter
-    pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
-    sor.setInputCloud(cloud_filtered);
-    sor.setMeanK(50);
-    sor.setStddevMulThresh(1.0);
-    sor.filter(*cloud_filtered);
+    // // Remove outliers using a statistical outlier removal filter
+    // pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
+    // sor.setInputCloud(cloud_filtered);
+    // sor.setMeanK(50);
+    // sor.setStddevMulThresh(1.0);
+    // sor.filter(*cloud_filtered);
 
 
 
     // Segment the cylinder using RANSAC
     // Get the normals
-    pcl::PointCloud<pcl::PointNormal>::Ptr cloud_normals(new pcl::PointCloud<pcl::PointNormal>);
-    pcl::NormalEstimation<pcl::PointXYZ, pcl::PointNormal> normals_estimator;
-    pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>());
-    normals_estimator.setSearchMethod(tree);
-    normals_estimator.setInputCloud(cloud_filtered);
-    normals_estimator.setKSearch(50); // play
-    normals_estimator.compute(*cloud_normals);
+    // pcl::PointCloud<pcl::PointNormal>::Ptr cloud_normals(new pcl::PointCloud<pcl::PointNormal>);
+    // pcl::NormalEstimation<pcl::PointXYZ, pcl::PointNormal> normals_estimator;
+    // pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>());
+    // normals_estimator.setSearchMethod(tree);
+    // normals_estimator.setInputCloud(cloud_filtered);
+    // normals_estimator.setKSearch(50); // play
+    // normals_estimator.compute(*cloud_normals);
 
-    // Segmentation of the cylinder from the normals 
-    pcl::SACSegmentationFromNormals<pcl::PointXYZ, pcl::PointNormal> cylinder_segmentator;
-    cylinder_segmentator.setOptimizeCoefficients(true);
-    cylinder_segmentator.setModelType(pcl::SACMODEL_CYLINDER);
-    cylinder_segmentator.setMethodType(pcl::SAC_RANSAC);
-    cylinder_segmentator.setNormalDistanceWeight(0.1);
-    cylinder_segmentator.setMaxIterations(10000);
-    cylinder_segmentator.setDistanceThreshold(0.005); // play
-    cylinder_segmentator.setRadiusLimits(0.001, 0.02); // play
-    cylinder_segmentator.setInputCloud(cloud_filtered);
-    cylinder_segmentator.setInputNormals(cloud_normals);
+    // // Segmentation of the cylinder from the normals 
+    // pcl::SACSegmentationFromNormals<pcl::PointXYZ, pcl::PointNormal> cylinder_segmentator;
+    // cylinder_segmentator.setOptimizeCoefficients(true);
+    // cylinder_segmentator.setModelType(pcl::SACMODEL_CYLINDER);
+    // cylinder_segmentator.setMethodType(pcl::SAC_RANSAC);
+    // cylinder_segmentator.setNormalDistanceWeight(0.1);
+    // cylinder_segmentator.setMaxIterations(10000);
+    // cylinder_segmentator.setDistanceThreshold(0.005); // play
+    // cylinder_segmentator.setRadiusLimits(0.001, 0.02); // play
+    // cylinder_segmentator.setInputCloud(cloud_filtered);
+    // cylinder_segmentator.setInputNormals(cloud_normals);
 
-    // Get inliers and model coefficients
-    pcl::PointIndices::Ptr inliers_cylinder(new pcl::PointIndices);
-    pcl::ModelCoefficients::Ptr coefficients_cylinder(new pcl::ModelCoefficients);
-    cylinder_segmentator.segment(*inliers_cylinder,*coefficients_cylinder);
+    // // Get inliers and model coefficients
+    // pcl::PointIndices::Ptr inliers_cylinder(new pcl::PointIndices);
+    // pcl::ModelCoefficients::Ptr coefficients_cylinder(new pcl::ModelCoefficients);
+    // cylinder_segmentator.segment(*inliers_cylinder,*coefficients_cylinder);
 
-    // Extract the cylinder
-    pcl::ExtractIndices<pcl::PointXYZ> cylinder_extracted;
-    cylinder_extracted.setInputCloud(cloud_filtered);
-    cylinder_extracted.setIndices(inliers_cylinder);
-    cylinder_extracted.setNegative(false);
+    // // Extract the cylinder
+    // pcl::ExtractIndices<pcl::PointXYZ> cylinder_extracted;
+    // cylinder_extracted.setInputCloud(cloud_filtered);
+    // cylinder_extracted.setIndices(inliers_cylinder);
+    // cylinder_extracted.setNegative(false);
 
-    cylinder_extracted.filter(*cloud_filtered);
+    // cylinder_extracted.filter(*cloud_filtered);
 
 
 
@@ -128,7 +128,7 @@ void isolateCylinder(const std::string& input_pcd, const std::string& output_pcd
 
 int main(int argc, char** argv)
 {
-    std::string path_input="/home/ros/master_ws/src/3D_cv/src/inputs/";
+    std::string path_input="/home/ros/master_ws/src/3D_cv/src/";
     std::string path_output="/home/ros/master_ws/src/3D_cv/src/outputs/";
     std::string input_pcd = path_input + std::string("test.pcd");
     std::string output_pcd = path_output+std::string("output_points.pcd");

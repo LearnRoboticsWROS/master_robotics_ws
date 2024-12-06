@@ -73,6 +73,7 @@ public:
         orientation.setRPY(tau/2, -tau/4, 0);
         pick_position.orientation = tf2::toMsg(orientation);
         const double eef_offset = 0.2;
+        move_group.setPoseReferenceFrame("base_link");
         // pick_position.position.x = 0 - eef_offset;
         // pick_position.position.y = 0.5;
         // pick_position.position.z = 0.3;
@@ -118,6 +119,7 @@ public:
         
 
         tf2::Quaternion orientation;
+        move_group_place.setPoseReferenceFrame("base_link");
         orientation.setRPY(0, -tau/4, tau/4);
         place_position.orientation = tf2::toMsg(orientation);
         place_position.position.x = -0.6;
