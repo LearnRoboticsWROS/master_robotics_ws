@@ -6616,6 +6616,19 @@ pick_place_grasp_2D_camera/fast:
 .PHONY : pick_place_grasp_2D_camera/fast
 
 #=============================================================================
+# Target rules for targets named pick_place_ur5_robotiq
+
+# Build rule for target.
+pick_place_ur5_robotiq: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pick_place_ur5_robotiq
+.PHONY : pick_place_ur5_robotiq
+
+# fast build rule for target.
+pick_place_ur5_robotiq/fast:
+	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq.dir/build
+.PHONY : pick_place_ur5_robotiq/fast
+
+#=============================================================================
 # Target rules for targets named test_ik
 
 # Build rule for target.
@@ -6640,6 +6653,19 @@ pick_place: cmake_check_build_system
 pick_place/fast:
 	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place.dir/build
 .PHONY : pick_place/fast
+
+#=============================================================================
+# Target rules for targets named pick_place_ur5_robotiq_3D_camera
+
+# Build rule for target.
+pick_place_ur5_robotiq_3D_camera: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pick_place_ur5_robotiq_3D_camera
+.PHONY : pick_place_ur5_robotiq_3D_camera
+
+# fast build rule for target.
+pick_place_ur5_robotiq_3D_camera/fast:
+	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/build
+.PHONY : pick_place_ur5_robotiq_3D_camera/fast
 
 # Help Target
 help:
@@ -7150,8 +7176,10 @@ help:
 	@echo "... ur5_pick_place_class"
 	@echo "... pick_place_2D_camera"
 	@echo "... pick_place_grasp_2D_camera"
+	@echo "... pick_place_ur5_robotiq"
 	@echo "... test_ik"
 	@echo "... pick_place"
+	@echo "... pick_place_ur5_robotiq_3D_camera"
 .PHONY : help
 
 

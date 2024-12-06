@@ -80,6 +80,16 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
 # Special rule for the target test
 test:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
@@ -103,17 +113,6 @@ install/strip/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -125,15 +124,16 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
 
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
 
-.PHONY : list_install_components/fast
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -273,6 +273,21 @@ pick_place_grasp_2D_camera/fast:
 .PHONY : pick_place_grasp_2D_camera/fast
 
 # Convenience name for target.
+robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq.dir/rule:
+	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq.dir/rule
+.PHONY : robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq.dir/rule
+
+# Convenience name for target.
+pick_place_ur5_robotiq: robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq.dir/rule
+
+.PHONY : pick_place_ur5_robotiq
+
+# fast build rule for target.
+pick_place_ur5_robotiq/fast:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq.dir/build
+.PHONY : pick_place_ur5_robotiq/fast
+
+# Convenience name for target.
 robot_inverse_kinematics/CMakeFiles/test_ik.dir/rule:
 	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/test_ik.dir/rule
 .PHONY : robot_inverse_kinematics/CMakeFiles/test_ik.dir/rule
@@ -301,6 +316,21 @@ pick_place: robot_inverse_kinematics/CMakeFiles/pick_place.dir/rule
 pick_place/fast:
 	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place.dir/build
 .PHONY : pick_place/fast
+
+# Convenience name for target.
+robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/rule:
+	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/rule
+.PHONY : robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/rule
+
+# Convenience name for target.
+pick_place_ur5_robotiq_3D_camera: robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/rule
+
+.PHONY : pick_place_ur5_robotiq_3D_camera
+
+# fast build rule for target.
+pick_place_ur5_robotiq_3D_camera/fast:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/build
+.PHONY : pick_place_ur5_robotiq_3D_camera/fast
 
 src/pick_place.o: src/pick_place.cpp.o
 
@@ -413,6 +443,60 @@ src/pick_place_grasp_2D_camera.cpp.s:
 	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_grasp_2D_camera.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_grasp_2D_camera.dir/src/pick_place_grasp_2D_camera.cpp.s
 .PHONY : src/pick_place_grasp_2D_camera.cpp.s
 
+src/pick_place_ur5_robotiq.o: src/pick_place_ur5_robotiq.cpp.o
+
+.PHONY : src/pick_place_ur5_robotiq.o
+
+# target to build an object file
+src/pick_place_ur5_robotiq.cpp.o:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq.dir/src/pick_place_ur5_robotiq.cpp.o
+.PHONY : src/pick_place_ur5_robotiq.cpp.o
+
+src/pick_place_ur5_robotiq.i: src/pick_place_ur5_robotiq.cpp.i
+
+.PHONY : src/pick_place_ur5_robotiq.i
+
+# target to preprocess a source file
+src/pick_place_ur5_robotiq.cpp.i:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq.dir/src/pick_place_ur5_robotiq.cpp.i
+.PHONY : src/pick_place_ur5_robotiq.cpp.i
+
+src/pick_place_ur5_robotiq.s: src/pick_place_ur5_robotiq.cpp.s
+
+.PHONY : src/pick_place_ur5_robotiq.s
+
+# target to generate assembly for a file
+src/pick_place_ur5_robotiq.cpp.s:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq.dir/src/pick_place_ur5_robotiq.cpp.s
+.PHONY : src/pick_place_ur5_robotiq.cpp.s
+
+src/pick_place_ur5_robotiq_3D_camera.o: src/pick_place_ur5_robotiq_3D_camera.cpp.o
+
+.PHONY : src/pick_place_ur5_robotiq_3D_camera.o
+
+# target to build an object file
+src/pick_place_ur5_robotiq_3D_camera.cpp.o:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/src/pick_place_ur5_robotiq_3D_camera.cpp.o
+.PHONY : src/pick_place_ur5_robotiq_3D_camera.cpp.o
+
+src/pick_place_ur5_robotiq_3D_camera.i: src/pick_place_ur5_robotiq_3D_camera.cpp.i
+
+.PHONY : src/pick_place_ur5_robotiq_3D_camera.i
+
+# target to preprocess a source file
+src/pick_place_ur5_robotiq_3D_camera.cpp.i:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/src/pick_place_ur5_robotiq_3D_camera.cpp.i
+.PHONY : src/pick_place_ur5_robotiq_3D_camera.cpp.i
+
+src/pick_place_ur5_robotiq_3D_camera.s: src/pick_place_ur5_robotiq_3D_camera.cpp.s
+
+.PHONY : src/pick_place_ur5_robotiq_3D_camera.s
+
+# target to generate assembly for a file
+src/pick_place_ur5_robotiq_3D_camera.cpp.s:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/src/pick_place_ur5_robotiq_3D_camera.cpp.s
+.PHONY : src/pick_place_ur5_robotiq_3D_camera.cpp.s
+
 src/test_ik.o: src/test_ik.cpp.o
 
 .PHONY : src/test_ik.o
@@ -502,6 +586,7 @@ help:
 	@echo "... depend"
 	@echo "... install/local"
 	@echo "... install"
+	@echo "... list_install_components"
 	@echo "... moveit_ros_manipulation_gencfg"
 	@echo "... test"
 	@echo "... test_ik_collision_objects"
@@ -511,11 +596,12 @@ help:
 	@echo "... ur5_pick_place_class"
 	@echo "... pick_place_2D_camera"
 	@echo "... pick_place_grasp_2D_camera"
+	@echo "... pick_place_ur5_robotiq"
+	@echo "... rebuild_cache"
 	@echo "... test_ik"
 	@echo "... edit_cache"
 	@echo "... pick_place"
-	@echo "... rebuild_cache"
-	@echo "... list_install_components"
+	@echo "... pick_place_ur5_robotiq_3D_camera"
 	@echo "... src/pick_place.o"
 	@echo "... src/pick_place.i"
 	@echo "... src/pick_place.s"
@@ -528,6 +614,12 @@ help:
 	@echo "... src/pick_place_grasp_2D_camera.o"
 	@echo "... src/pick_place_grasp_2D_camera.i"
 	@echo "... src/pick_place_grasp_2D_camera.s"
+	@echo "... src/pick_place_ur5_robotiq.o"
+	@echo "... src/pick_place_ur5_robotiq.i"
+	@echo "... src/pick_place_ur5_robotiq.s"
+	@echo "... src/pick_place_ur5_robotiq_3D_camera.o"
+	@echo "... src/pick_place_ur5_robotiq_3D_camera.i"
+	@echo "... src/pick_place_ur5_robotiq_3D_camera.s"
 	@echo "... src/test_ik.o"
 	@echo "... src/test_ik.i"
 	@echo "... src/test_ik.s"
