@@ -72,13 +72,13 @@ public:
         tf2::Quaternion orientation;
         orientation.setRPY(tau/2, -tau/4, 0);
         pick_position.orientation = tf2::toMsg(orientation);
-        const double eef_offset = 0.2;
+        const double eef_offset = 0.15;
         move_group.setPoseReferenceFrame("base_link");
         // pick_position.position.x = 0 - eef_offset;
         // pick_position.position.y = 0.5;
         // pick_position.position.z = 0.3;
-        move_group.setPoseTarget(pick_position, "tool0");
-        move_group.move();
+        // move_group.setPoseTarget(pick_position, "tool0");
+        // move_group.move();
 
         service.request.from_camera_to_base_link = true;
 
@@ -96,13 +96,14 @@ public:
                                 <<
                                 pick_position.position.z <<")");
             // move_group.setPoseTarget(pick_position, "picking_point");
-
-            bool success = (move_group.move()==moveit::planning_interface::MoveItErrorCode::SUCCESS);
-            if (!success)
-            {
-                ROS_ERROR("MoveIt failed to plan and execute the pick motion.");
-                return;
-            }
+            move_group.setPoseTarget(pick_position, "tool0");
+            move_group.move();
+            // bool success = (move_group.move()==moveit::planning_interface::MoveItErrorCode::SUCCESS);
+            // if (!success)
+            // {
+            //     ROS_ERROR("MoveIt failed to plan and execute the pick motion.");
+            //     return;
+            // }
 
         }
         else

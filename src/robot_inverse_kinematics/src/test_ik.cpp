@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     tf2::Quaternion orientation;
     orientation.setRPY(tau/2, -tau/4, 0);
     target_pose1.orientation = tf2::toMsg(orientation);
-    target_pose1.position.x = 0;
+    target_pose1.position.x = -0.25;
     target_pose1.position.y = 0.5;
     target_pose1.position.z = 0.3;
     
