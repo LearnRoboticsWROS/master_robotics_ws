@@ -242,6 +242,10 @@ target_link_libraries(pick_place_ur5_robotiq ${catkin_LIBRARIES})
 add_executable(pick_place_ur5_robotiq_3D_camera src/pick_place_ur5_robotiq_3D_camera.cpp)
 add_dependencies(pick_place_ur5_robotiq_3D_camera ${cobot_test_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(pick_place_ur5_robotiq_3D_camera ${catkin_LIBRARIES})
+
+add_executable(repeatable_trajectory src/repeatable_trajectory.cpp)
+add_dependencies(repeatable_trajectory ${cobot_test_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(repeatable_trajectory ${catkin_LIBRARIES})
 #############
 ## Testing ##
 #############

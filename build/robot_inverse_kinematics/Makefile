@@ -332,6 +332,21 @@ pick_place_ur5_robotiq_3D_camera/fast:
 	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/build
 .PHONY : pick_place_ur5_robotiq_3D_camera/fast
 
+# Convenience name for target.
+robot_inverse_kinematics/CMakeFiles/repeatable_trajectory.dir/rule:
+	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/repeatable_trajectory.dir/rule
+.PHONY : robot_inverse_kinematics/CMakeFiles/repeatable_trajectory.dir/rule
+
+# Convenience name for target.
+repeatable_trajectory: robot_inverse_kinematics/CMakeFiles/repeatable_trajectory.dir/rule
+
+.PHONY : repeatable_trajectory
+
+# fast build rule for target.
+repeatable_trajectory/fast:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/repeatable_trajectory.dir/build.make robot_inverse_kinematics/CMakeFiles/repeatable_trajectory.dir/build
+.PHONY : repeatable_trajectory/fast
+
 src/pick_place.o: src/pick_place.cpp.o
 
 .PHONY : src/pick_place.o
@@ -497,6 +512,33 @@ src/pick_place_ur5_robotiq_3D_camera.cpp.s:
 	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/src/pick_place_ur5_robotiq_3D_camera.cpp.s
 .PHONY : src/pick_place_ur5_robotiq_3D_camera.cpp.s
 
+src/repeatable_trajectory.o: src/repeatable_trajectory.cpp.o
+
+.PHONY : src/repeatable_trajectory.o
+
+# target to build an object file
+src/repeatable_trajectory.cpp.o:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/repeatable_trajectory.dir/build.make robot_inverse_kinematics/CMakeFiles/repeatable_trajectory.dir/src/repeatable_trajectory.cpp.o
+.PHONY : src/repeatable_trajectory.cpp.o
+
+src/repeatable_trajectory.i: src/repeatable_trajectory.cpp.i
+
+.PHONY : src/repeatable_trajectory.i
+
+# target to preprocess a source file
+src/repeatable_trajectory.cpp.i:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/repeatable_trajectory.dir/build.make robot_inverse_kinematics/CMakeFiles/repeatable_trajectory.dir/src/repeatable_trajectory.cpp.i
+.PHONY : src/repeatable_trajectory.cpp.i
+
+src/repeatable_trajectory.s: src/repeatable_trajectory.cpp.s
+
+.PHONY : src/repeatable_trajectory.s
+
+# target to generate assembly for a file
+src/repeatable_trajectory.cpp.s:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/repeatable_trajectory.dir/build.make robot_inverse_kinematics/CMakeFiles/repeatable_trajectory.dir/src/repeatable_trajectory.cpp.s
+.PHONY : src/repeatable_trajectory.cpp.s
+
 src/test_ik.o: src/test_ik.cpp.o
 
 .PHONY : src/test_ik.o
@@ -598,10 +640,11 @@ help:
 	@echo "... pick_place_grasp_2D_camera"
 	@echo "... pick_place_ur5_robotiq"
 	@echo "... rebuild_cache"
-	@echo "... test_ik"
 	@echo "... edit_cache"
+	@echo "... test_ik"
 	@echo "... pick_place"
 	@echo "... pick_place_ur5_robotiq_3D_camera"
+	@echo "... repeatable_trajectory"
 	@echo "... src/pick_place.o"
 	@echo "... src/pick_place.i"
 	@echo "... src/pick_place.s"
@@ -620,6 +663,9 @@ help:
 	@echo "... src/pick_place_ur5_robotiq_3D_camera.o"
 	@echo "... src/pick_place_ur5_robotiq_3D_camera.i"
 	@echo "... src/pick_place_ur5_robotiq_3D_camera.s"
+	@echo "... src/repeatable_trajectory.o"
+	@echo "... src/repeatable_trajectory.i"
+	@echo "... src/repeatable_trajectory.s"
 	@echo "... src/test_ik.o"
 	@echo "... src/test_ik.i"
 	@echo "... src/test_ik.s"

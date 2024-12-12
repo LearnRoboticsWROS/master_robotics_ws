@@ -6667,6 +6667,19 @@ pick_place_ur5_robotiq_3D_camera/fast:
 	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/build.make robot_inverse_kinematics/CMakeFiles/pick_place_ur5_robotiq_3D_camera.dir/build
 .PHONY : pick_place_ur5_robotiq_3D_camera/fast
 
+#=============================================================================
+# Target rules for targets named repeatable_trajectory
+
+# Build rule for target.
+repeatable_trajectory: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 repeatable_trajectory
+.PHONY : repeatable_trajectory
+
+# fast build rule for target.
+repeatable_trajectory/fast:
+	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/repeatable_trajectory.dir/build.make robot_inverse_kinematics/CMakeFiles/repeatable_trajectory.dir/build
+.PHONY : repeatable_trajectory/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -7180,6 +7193,7 @@ help:
 	@echo "... test_ik"
 	@echo "... pick_place"
 	@echo "... pick_place_ur5_robotiq_3D_camera"
+	@echo "... repeatable_trajectory"
 .PHONY : help
 
 
