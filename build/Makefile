@@ -6603,6 +6603,19 @@ pick_place_2D_camera/fast:
 .PHONY : pick_place_2D_camera/fast
 
 #=============================================================================
+# Target rules for targets named draw_circle
+
+# Build rule for target.
+draw_circle: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 draw_circle
+.PHONY : draw_circle
+
+# fast build rule for target.
+draw_circle/fast:
+	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/draw_circle.dir/build.make robot_inverse_kinematics/CMakeFiles/draw_circle.dir/build
+.PHONY : draw_circle/fast
+
+#=============================================================================
 # Target rules for targets named pick_place_grasp_2D_camera
 
 # Build rule for target.
@@ -7188,6 +7201,7 @@ help:
 	@echo "... pick_place_class"
 	@echo "... ur5_pick_place_class"
 	@echo "... pick_place_2D_camera"
+	@echo "... draw_circle"
 	@echo "... pick_place_grasp_2D_camera"
 	@echo "... pick_place_ur5_robotiq"
 	@echo "... test_ik"

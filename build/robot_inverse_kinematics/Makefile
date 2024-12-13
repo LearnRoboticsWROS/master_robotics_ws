@@ -258,6 +258,21 @@ pick_place_2D_camera/fast:
 .PHONY : pick_place_2D_camera/fast
 
 # Convenience name for target.
+robot_inverse_kinematics/CMakeFiles/draw_circle.dir/rule:
+	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/draw_circle.dir/rule
+.PHONY : robot_inverse_kinematics/CMakeFiles/draw_circle.dir/rule
+
+# Convenience name for target.
+draw_circle: robot_inverse_kinematics/CMakeFiles/draw_circle.dir/rule
+
+.PHONY : draw_circle
+
+# fast build rule for target.
+draw_circle/fast:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/draw_circle.dir/build.make robot_inverse_kinematics/CMakeFiles/draw_circle.dir/build
+.PHONY : draw_circle/fast
+
+# Convenience name for target.
 robot_inverse_kinematics/CMakeFiles/pick_place_grasp_2D_camera.dir/rule:
 	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/pick_place_grasp_2D_camera.dir/rule
 .PHONY : robot_inverse_kinematics/CMakeFiles/pick_place_grasp_2D_camera.dir/rule
@@ -346,6 +361,33 @@ repeatable_trajectory: robot_inverse_kinematics/CMakeFiles/repeatable_trajectory
 repeatable_trajectory/fast:
 	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/repeatable_trajectory.dir/build.make robot_inverse_kinematics/CMakeFiles/repeatable_trajectory.dir/build
 .PHONY : repeatable_trajectory/fast
+
+src/draw_circle.o: src/draw_circle.cpp.o
+
+.PHONY : src/draw_circle.o
+
+# target to build an object file
+src/draw_circle.cpp.o:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/draw_circle.dir/build.make robot_inverse_kinematics/CMakeFiles/draw_circle.dir/src/draw_circle.cpp.o
+.PHONY : src/draw_circle.cpp.o
+
+src/draw_circle.i: src/draw_circle.cpp.i
+
+.PHONY : src/draw_circle.i
+
+# target to preprocess a source file
+src/draw_circle.cpp.i:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/draw_circle.dir/build.make robot_inverse_kinematics/CMakeFiles/draw_circle.dir/src/draw_circle.cpp.i
+.PHONY : src/draw_circle.cpp.i
+
+src/draw_circle.s: src/draw_circle.cpp.s
+
+.PHONY : src/draw_circle.s
+
+# target to generate assembly for a file
+src/draw_circle.cpp.s:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/draw_circle.dir/build.make robot_inverse_kinematics/CMakeFiles/draw_circle.dir/src/draw_circle.cpp.s
+.PHONY : src/draw_circle.cpp.s
 
 src/pick_place.o: src/pick_place.cpp.o
 
@@ -629,14 +671,15 @@ help:
 	@echo "... install/local"
 	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... moveit_ros_manipulation_gencfg"
 	@echo "... test"
+	@echo "... moveit_ros_manipulation_gencfg"
 	@echo "... test_ik_collision_objects"
 	@echo "... test_module"
 	@echo "... install/strip"
 	@echo "... pick_place_class"
 	@echo "... ur5_pick_place_class"
 	@echo "... pick_place_2D_camera"
+	@echo "... draw_circle"
 	@echo "... pick_place_grasp_2D_camera"
 	@echo "... pick_place_ur5_robotiq"
 	@echo "... rebuild_cache"
@@ -645,6 +688,9 @@ help:
 	@echo "... pick_place"
 	@echo "... pick_place_ur5_robotiq_3D_camera"
 	@echo "... repeatable_trajectory"
+	@echo "... src/draw_circle.o"
+	@echo "... src/draw_circle.i"
+	@echo "... src/draw_circle.s"
 	@echo "... src/pick_place.o"
 	@echo "... src/pick_place.i"
 	@echo "... src/pick_place.s"
