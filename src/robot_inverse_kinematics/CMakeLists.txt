@@ -250,6 +250,11 @@ target_link_libraries(repeatable_trajectory ${catkin_LIBRARIES})
 add_executable(draw_circle src/draw_circle.cpp)
 add_dependencies(draw_circle ${cobot_test_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(draw_circle ${catkin_LIBRARIES})
+
+add_executable(test_module2 src/test_module2.cpp)
+add_dependencies(test_module2 ${cobot_test_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(test_module2 ${catkin_LIBRARIES})
+
 #############
 ## Testing ##
 #############

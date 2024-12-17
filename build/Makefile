@@ -6525,6 +6525,19 @@ ur20_moveit_plugin/fast:
 .PHONY : ur20_moveit_plugin/fast
 
 #=============================================================================
+# Target rules for targets named test_module2
+
+# Build rule for target.
+test_module2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_module2
+.PHONY : test_module2
+
+# fast build rule for target.
+test_module2/fast:
+	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/test_module2.dir/build.make robot_inverse_kinematics/CMakeFiles/test_module2.dir/build
+.PHONY : test_module2/fast
+
+#=============================================================================
 # Target rules for targets named moveit_ros_manipulation_gencfg
 
 # Build rule for target.
@@ -7195,6 +7208,7 @@ help:
 	@echo "... ur3e_moveit_plugin"
 	@echo "... ur30_moveit_plugin"
 	@echo "... ur20_moveit_plugin"
+	@echo "... test_module2"
 	@echo "... moveit_ros_manipulation_gencfg"
 	@echo "... test_ik_collision_objects"
 	@echo "... test_module"

@@ -56,18 +56,6 @@ CMAKE_BINARY_DIR = /home/ros/master_ws/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -100,6 +88,18 @@ test:
 test/fast: test
 
 .PHONY : test/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # Special rule for the target install/strip
 install/strip: preinstall
@@ -166,6 +166,21 @@ preinstall/fast:
 depend:
 	cd /home/ros/master_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+# Convenience name for target.
+robot_inverse_kinematics/CMakeFiles/test_module2.dir/rule:
+	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/test_module2.dir/rule
+.PHONY : robot_inverse_kinematics/CMakeFiles/test_module2.dir/rule
+
+# Convenience name for target.
+test_module2: robot_inverse_kinematics/CMakeFiles/test_module2.dir/rule
+
+.PHONY : test_module2
+
+# fast build rule for target.
+test_module2/fast:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/test_module2.dir/build.make robot_inverse_kinematics/CMakeFiles/test_module2.dir/build
+.PHONY : test_module2/fast
 
 # Convenience name for target.
 robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/rule:
@@ -662,16 +677,44 @@ src/test_module.cpp.s:
 	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/test_module.dir/build.make robot_inverse_kinematics/CMakeFiles/test_module.dir/src/test_module.cpp.s
 .PHONY : src/test_module.cpp.s
 
+src/test_module2.o: src/test_module2.cpp.o
+
+.PHONY : src/test_module2.o
+
+# target to build an object file
+src/test_module2.cpp.o:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/test_module2.dir/build.make robot_inverse_kinematics/CMakeFiles/test_module2.dir/src/test_module2.cpp.o
+.PHONY : src/test_module2.cpp.o
+
+src/test_module2.i: src/test_module2.cpp.i
+
+.PHONY : src/test_module2.i
+
+# target to preprocess a source file
+src/test_module2.cpp.i:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/test_module2.dir/build.make robot_inverse_kinematics/CMakeFiles/test_module2.dir/src/test_module2.cpp.i
+.PHONY : src/test_module2.cpp.i
+
+src/test_module2.s: src/test_module2.cpp.s
+
+.PHONY : src/test_module2.s
+
+# target to generate assembly for a file
+src/test_module2.cpp.s:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/test_module2.dir/build.make robot_inverse_kinematics/CMakeFiles/test_module2.dir/src/test_module2.cpp.s
+.PHONY : src/test_module2.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/local"
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... test"
+	@echo "... install/local"
+	@echo "... test_module2"
 	@echo "... moveit_ros_manipulation_gencfg"
 	@echo "... test_ik_collision_objects"
 	@echo "... test_module"
@@ -721,6 +764,9 @@ help:
 	@echo "... src/test_module.o"
 	@echo "... src/test_module.i"
 	@echo "... src/test_module.s"
+	@echo "... src/test_module2.o"
+	@echo "... src/test_module2.i"
+	@echo "... src/test_module2.s"
 .PHONY : help
 
 
