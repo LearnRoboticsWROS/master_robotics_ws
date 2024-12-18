@@ -51,7 +51,9 @@ int main(int argc, char** argv)
 
         // Create a trajectory from waypoints
         moveit_msgs::RobotTrajectory trajectory;
-        double fraction = move_group.computeCartesianPath(waypoints, 0.05, 0.0, trajectory);
+        const double eef_step = 0.05;  // play
+        const double jump_threshold = 0.0; // play
+        double fraction = move_group.computeCartesianPath(waypoints, eef_step, jump_threshold, trajectory);
 
         if (fraction < 1.0)
         {
@@ -74,13 +76,13 @@ int main(int argc, char** argv)
                     interp.position.y = start.position.y + t * (end.position.y - start.position.y);
                     interp.position.z = start.position.z + t * (end.position.z - start.position.z);
 
-                    interp.orientation = start.orientation; // Simplified for now
+                    interp.orientation = start.orientation; 
                     interpolated_waypoints.push_back(interp);
                 }
             }
 
             // Recompute Cartesian path with interpolated waypoints
-            fraction = move_group.computeCartesianPath(interpolated_waypoints, 0.05, 0.0, trajectory);
+            fraction = move_group.computeCartesianPath(interpolated_waypoints, eef_step, jump_threshold, trajectory);
             if (fraction < 1.0)
             {
                 ROS_WARN("Even with interpolation, could not compute the full trajectory. Fraction: %.2f", fraction);

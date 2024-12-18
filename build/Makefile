@@ -6525,6 +6525,19 @@ ur20_moveit_plugin/fast:
 .PHONY : ur20_moveit_plugin/fast
 
 #=============================================================================
+# Target rules for targets named waypoint_executer
+
+# Build rule for target.
+waypoint_executer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 waypoint_executer
+.PHONY : waypoint_executer
+
+# fast build rule for target.
+waypoint_executer/fast:
+	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/waypoint_executer.dir/build.make robot_inverse_kinematics/CMakeFiles/waypoint_executer.dir/build
+.PHONY : waypoint_executer/fast
+
+#=============================================================================
 # Target rules for targets named test_module2
 
 # Build rule for target.
@@ -6549,6 +6562,19 @@ moveit_ros_manipulation_gencfg: cmake_check_build_system
 moveit_ros_manipulation_gencfg/fast:
 	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/build.make robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/build
 .PHONY : moveit_ros_manipulation_gencfg/fast
+
+#=============================================================================
+# Target rules for targets named waypoint_saver
+
+# Build rule for target.
+waypoint_saver: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 waypoint_saver
+.PHONY : waypoint_saver
+
+# fast build rule for target.
+waypoint_saver/fast:
+	$(MAKE) -f robot_inverse_kinematics/CMakeFiles/waypoint_saver.dir/build.make robot_inverse_kinematics/CMakeFiles/waypoint_saver.dir/build
+.PHONY : waypoint_saver/fast
 
 #=============================================================================
 # Target rules for targets named test_ik_collision_objects
@@ -7208,8 +7234,10 @@ help:
 	@echo "... ur3e_moveit_plugin"
 	@echo "... ur30_moveit_plugin"
 	@echo "... ur20_moveit_plugin"
+	@echo "... waypoint_executer"
 	@echo "... test_module2"
 	@echo "... moveit_ros_manipulation_gencfg"
+	@echo "... waypoint_saver"
 	@echo "... test_ik_collision_objects"
 	@echo "... test_module"
 	@echo "... pick_place_class"

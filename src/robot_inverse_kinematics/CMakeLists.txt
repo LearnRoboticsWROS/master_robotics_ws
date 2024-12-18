@@ -255,6 +255,14 @@ add_executable(test_module2 src/test_module2.cpp)
 add_dependencies(test_module2 ${cobot_test_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(test_module2 ${catkin_LIBRARIES})
 
+add_executable(waypoint_saver src/waypoint_saver.cpp)
+add_dependencies(waypoint_saver ${cobot_test_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(waypoint_saver ${catkin_LIBRARIES})
+
+add_executable(waypoint_executer src/waypoint_executer.cpp)
+add_dependencies(waypoint_executer ${cobot_test_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(waypoint_executer ${catkin_LIBRARIES})
+
 #############
 ## Testing ##
 #############

@@ -168,6 +168,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+robot_inverse_kinematics/CMakeFiles/waypoint_executer.dir/rule:
+	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/waypoint_executer.dir/rule
+.PHONY : robot_inverse_kinematics/CMakeFiles/waypoint_executer.dir/rule
+
+# Convenience name for target.
+waypoint_executer: robot_inverse_kinematics/CMakeFiles/waypoint_executer.dir/rule
+
+.PHONY : waypoint_executer
+
+# fast build rule for target.
+waypoint_executer/fast:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/waypoint_executer.dir/build.make robot_inverse_kinematics/CMakeFiles/waypoint_executer.dir/build
+.PHONY : waypoint_executer/fast
+
+# Convenience name for target.
 robot_inverse_kinematics/CMakeFiles/test_module2.dir/rule:
 	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/test_module2.dir/rule
 .PHONY : robot_inverse_kinematics/CMakeFiles/test_module2.dir/rule
@@ -196,6 +211,21 @@ moveit_ros_manipulation_gencfg: robot_inverse_kinematics/CMakeFiles/moveit_ros_m
 moveit_ros_manipulation_gencfg/fast:
 	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/build.make robot_inverse_kinematics/CMakeFiles/moveit_ros_manipulation_gencfg.dir/build
 .PHONY : moveit_ros_manipulation_gencfg/fast
+
+# Convenience name for target.
+robot_inverse_kinematics/CMakeFiles/waypoint_saver.dir/rule:
+	cd /home/ros/master_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot_inverse_kinematics/CMakeFiles/waypoint_saver.dir/rule
+.PHONY : robot_inverse_kinematics/CMakeFiles/waypoint_saver.dir/rule
+
+# Convenience name for target.
+waypoint_saver: robot_inverse_kinematics/CMakeFiles/waypoint_saver.dir/rule
+
+.PHONY : waypoint_saver
+
+# fast build rule for target.
+waypoint_saver/fast:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/waypoint_saver.dir/build.make robot_inverse_kinematics/CMakeFiles/waypoint_saver.dir/build
+.PHONY : waypoint_saver/fast
 
 # Convenience name for target.
 robot_inverse_kinematics/CMakeFiles/test_ik_collision_objects.dir/rule:
@@ -704,6 +734,60 @@ src/test_module2.cpp.s:
 	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/test_module2.dir/build.make robot_inverse_kinematics/CMakeFiles/test_module2.dir/src/test_module2.cpp.s
 .PHONY : src/test_module2.cpp.s
 
+src/waypoint_executer.o: src/waypoint_executer.cpp.o
+
+.PHONY : src/waypoint_executer.o
+
+# target to build an object file
+src/waypoint_executer.cpp.o:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/waypoint_executer.dir/build.make robot_inverse_kinematics/CMakeFiles/waypoint_executer.dir/src/waypoint_executer.cpp.o
+.PHONY : src/waypoint_executer.cpp.o
+
+src/waypoint_executer.i: src/waypoint_executer.cpp.i
+
+.PHONY : src/waypoint_executer.i
+
+# target to preprocess a source file
+src/waypoint_executer.cpp.i:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/waypoint_executer.dir/build.make robot_inverse_kinematics/CMakeFiles/waypoint_executer.dir/src/waypoint_executer.cpp.i
+.PHONY : src/waypoint_executer.cpp.i
+
+src/waypoint_executer.s: src/waypoint_executer.cpp.s
+
+.PHONY : src/waypoint_executer.s
+
+# target to generate assembly for a file
+src/waypoint_executer.cpp.s:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/waypoint_executer.dir/build.make robot_inverse_kinematics/CMakeFiles/waypoint_executer.dir/src/waypoint_executer.cpp.s
+.PHONY : src/waypoint_executer.cpp.s
+
+src/waypoint_saver.o: src/waypoint_saver.cpp.o
+
+.PHONY : src/waypoint_saver.o
+
+# target to build an object file
+src/waypoint_saver.cpp.o:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/waypoint_saver.dir/build.make robot_inverse_kinematics/CMakeFiles/waypoint_saver.dir/src/waypoint_saver.cpp.o
+.PHONY : src/waypoint_saver.cpp.o
+
+src/waypoint_saver.i: src/waypoint_saver.cpp.i
+
+.PHONY : src/waypoint_saver.i
+
+# target to preprocess a source file
+src/waypoint_saver.cpp.i:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/waypoint_saver.dir/build.make robot_inverse_kinematics/CMakeFiles/waypoint_saver.dir/src/waypoint_saver.cpp.i
+.PHONY : src/waypoint_saver.cpp.i
+
+src/waypoint_saver.s: src/waypoint_saver.cpp.s
+
+.PHONY : src/waypoint_saver.s
+
+# target to generate assembly for a file
+src/waypoint_saver.cpp.s:
+	cd /home/ros/master_ws/build && $(MAKE) -f robot_inverse_kinematics/CMakeFiles/waypoint_saver.dir/build.make robot_inverse_kinematics/CMakeFiles/waypoint_saver.dir/src/waypoint_saver.cpp.s
+.PHONY : src/waypoint_saver.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -713,9 +797,11 @@ help:
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... test"
+	@echo "... waypoint_executer"
 	@echo "... install/local"
 	@echo "... test_module2"
 	@echo "... moveit_ros_manipulation_gencfg"
+	@echo "... waypoint_saver"
 	@echo "... test_ik_collision_objects"
 	@echo "... test_module"
 	@echo "... install/strip"
@@ -767,6 +853,12 @@ help:
 	@echo "... src/test_module2.o"
 	@echo "... src/test_module2.i"
 	@echo "... src/test_module2.s"
+	@echo "... src/waypoint_executer.o"
+	@echo "... src/waypoint_executer.i"
+	@echo "... src/waypoint_executer.s"
+	@echo "... src/waypoint_saver.o"
+	@echo "... src/waypoint_saver.i"
+	@echo "... src/waypoint_saver.s"
 .PHONY : help
 
 
